@@ -1,0 +1,75 @@
+ CentOS7安装sogou输入法
+
+
+准备阶段:
+
+安装fcitx(尽量不要卸载ibus,后面会有一堆麻烦)
+
+yum install fcitx
+
+执行fcitx显示方式是文本时安装
+
+安装fcitx-configtool:yum install fcitx-configtool
+
+设置环境变量:
+
+~/.bashrc(linux下.开头是隐藏文件,ls -a可以查看,vi .bashrc直接编辑)中添加
+
+export XMODIFIERS=@im=fcitx
+
+export GTK_IM_MODULE=fcitx
+
+export QT_IM_MODULE=fcitx
+
+export XIM=fcitx
+
+切换使用的输入法:imsettings-switch fcitx
+
+是时候重启一波:reboot
+
+如有安装问题输入fcitx-diagnose查看安装状态解决
+
+qt库没安装没什么影响,不用管,主要看环境变量是不是都对.
+
+安装完fcitx,右下角会有数字一般是1或2,点一下出现底边栏,会有个像kali里那种小键盘,点击可以切换输入法.
+
+另:英文版系统记得添加输入源
+安装搜狗拼音:
+
+首先去搜狗官网下载搜狗forlinux包
+
+下的是deb的包...,centos不像ubuntu可以双击安装
+
+解决方法:
+
+1.安装一下dpkg包:yum install dpkg(一般已经最新,不用再更新)
+
+2.到下载的搜狗包位置,新建文件夹:mkdir  sougou
+
+3.解包到建的文件夹(命令行:cd sogou cp ../包名         图形界面拖动)
+
+4.进入到解压包
+
+5.此处打开终端:tar-Jxvf data.tar.xz -C /
+
+6.添加搜狗拼音的库:cp /usr/lib/x86_64-linux-gnu/fcitx/fcitx-sogoupinyin.so /usr/lib64/fcitx/(64位)
+
+cp /usr/lib/i386-linux-gnu/fcitx/fcitx-sogoupinyin.so /usr/lib/fcitx/(32位)
+
+7.重启fcitx:fcitx -r; fcitx-configtool
+
+8.添加搜狗拼音,reboot
+
+注:据说sogou-qimpanel可以启动搜狗面板,没成功过,我是在fcitx里添加搜狗拼音后ctrl +空格调出来
+某些应用中无法启用输入法的解决方法:
+
+删掉两个文件
+
+~$ cd .config
+
+sudo rm SogouPY -rf
+
+sudo rm SogouPY.users/ -f
+
+删除后使用fcitx -r进行重新生成。
+

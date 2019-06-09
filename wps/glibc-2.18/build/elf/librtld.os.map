@@ -1,0 +1,1253 @@
+由于文件 (符号) 而包含了归档成员
+
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__libc_check_standard_fds)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (rtld_errno)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__closedir)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__readdir)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (rewinddir)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+                              /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os) (__getdents)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__fdopendir)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__profil)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__profile_frequency)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__GI___xstat64)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__GI___fxstat64)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__GI___lxstat64)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__open)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__libc_read)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__libc_write)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__access)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+                              /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os) (__libc_fcntl)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__close)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__mmap)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__munmap)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__mprotect)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__lseek)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__uname)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (_exit)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__getpid)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__environ)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__sigsetjmp)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (__longjmp)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+                              /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os) (__sigaction)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (strchr)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (strcmp)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (strcpy)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (strlen)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (strnlen)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (memchr)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (memcmp)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (memmove)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (memset)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (mempcpy)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (stpcpy)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (memcpy)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+                              /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os) (_wordcopy_fwd_aligned)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+                              /root/glibc-2.18/build/elf/dl-allobjs.os (rawmemchr)
+/root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+                              /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os) (__setitimer)
+
+内存配置
+
+名称           来源             长度             属性
+*default*        0x0000000000000000 0xffffffffffffffff
+
+链结器命令稿和内存映射
+
+START GROUP
+LOAD /root/glibc-2.18/build/elf/dl-allobjs.os
+LOAD /root/glibc-2.18/build/elf/rtld-libc.a
+LOAD /usr/lib/gcc/x86_64-redhat-linux/4.8.5/libgcc.a
+END GROUP
+
+.interp
+ *(.interp)
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.hash
+ *(.hash)
+
+.gnu.hash
+ *(.gnu.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rela.init
+ *(.rela.init)
+
+.rela.text
+ *(.rela.text)
+
+.rela.fini
+ *(.rela.fini)
+
+.rela.rodata
+ *(.rela.rodata)
+
+.rela.data.rel.ro
+ *(.rela.data.rel.ro)
+
+.rela.data
+ *(.rela.data)
+
+.rela.tdata
+ *(.rela.tdata)
+
+.rela.tbss
+ *(.rela.tbss)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rela.got
+ *(.rela.got)
+
+.rela.bss
+ *(.rela.bss)
+
+.rela.ldata
+ *(.rela.ldata)
+
+.rela.lbss
+ *(.rela.lbss)
+
+.rela.lrodata
+ *(.rela.lrodata)
+
+.rela.ifunc
+ *(.rela.ifunc)
+
+.rela.plt
+ *(.rela.plt)
+
+.init
+ *(SORT(.init))
+
+.plt
+ *(.plt)
+ *(.iplt)
+
+.plt.got
+ *(.plt.got)
+
+.plt.bnd
+ *(.plt.bnd)
+
+.text           0x0000000000000000    0x17f00
+ *(.text .stub)
+ .text          0x0000000000000000    0x15b12 /root/glibc-2.18/build/elf/dl-allobjs.os
+                0x0000000000000000                _start
+                0x0000000000000008                _dl_start_user
+                0x0000000000000050                _dl_initial_error_catch_tsd
+                0x0000000000006180                _dl_dst_count
+                0x0000000000006230                _dl_dst_substitute
+                0x0000000000006800                _dl_init_paths
+                0x0000000000006c80                _dl_map_object
+                0x0000000000007650                _dl_rtld_di_serinfo
+                0x0000000000008340                _dl_lookup_symbol_x
+                0x00000000000093b0                _dl_setup_hash
+                0x0000000000009460                _dl_add_to_namespace_list
+                0x00000000000094f0                _dl_new_object
+                0x0000000000009830                _dl_try_allocate_static_tls
+                0x0000000000009910                _dl_allocate_static_tls
+                0x0000000000009940                _dl_nothread_init_static_tls
+                0x00000000000099d0                _dl_protect_relro
+                0x0000000000009a30                _dl_reloc_bad_type
+                0x0000000000009b10                _dl_relocate_object
+                0x000000000000b0b0                _dl_map_object_deps
+                0x000000000000c250                _dl_important_hwcaps
+                0x000000000000c990                _dl_fixup
+                0x000000000000cba0                _dl_profile_fixup
+                0x000000000000d180                _dl_call_pltexit
+                0x000000000000d290                _dl_signal_error
+                0x000000000000d420                _dl_signal_cerror
+                0x000000000000d4a0                _dl_catch_error
+                0x000000000000d580                _dl_receive_error
+                0x000000000000d6f0                _dl_init_internal
+                0x000000000000d6f0                _dl_init
+                0x000000000000d810                _dl_sort_fini
+                0x000000000000daa0                _dl_fini
+                0x000000000000dec0                _dl_debug_state
+                0x000000000000dec0                __GI__dl_debug_state
+                0x000000000000ded0                _dl_debug_initialize
+                0x000000000000e500                _dl_sysdep_read_whole_file
+                0x000000000000e590                _dl_debug_printf
+                0x000000000000e5f0                _dl_debug_printf_c
+                0x000000000000e650                _dl_dprintf
+                0x000000000000e6a0                _dl_name_match_p
+                0x000000000000e710                _dl_higher_prime_number
+                0x000000000000eb40                _dl_check_map_versions
+                0x000000000000efc0                _dl_check_all_versions
+                0x000000000000f030                _dl_start_profile
+                0x000000000000f830                _dl_mcount_internal
+                0x000000000000f830                _dl_mcount
+                0x000000000000fa60                _dl_resolve_conflicts
+                0x000000000000fc80                _dl_next_tls_modid
+                0x000000000000fd60                _dl_determine_tlsoffset
+                0x000000000000ff20                __GI__dl_tls_setup
+                0x000000000000ff20                _dl_tls_setup
+                0x000000000000ffd0                _dl_get_tls_static_info
+                0x000000000000fff0                _dl_allocate_tls_storage
+                0x0000000000010130                __GI__dl_allocate_tls_init
+                0x0000000000010130                _dl_allocate_tls_init
+                0x0000000000010350                __GI__dl_allocate_tls
+                0x0000000000010350                _dl_allocate_tls
+                0x0000000000010390                _dl_deallocate_tls
+                0x0000000000010390                __GI__dl_deallocate_tls
+                0x0000000000010420                _dl_update_slotinfo
+                0x0000000000010770                __tls_get_addr
+                0x00000000000107b0                _dl_tls_get_addr_soft
+                0x0000000000010820                _dl_add_to_slotinfo
+                0x0000000000010900                _dl_get_origin
+                0x0000000000010a70                _dl_scope_free
+                0x0000000000010b30                _dl_make_stack_executable
+                0x0000000000010b30                __GI__dl_make_stack_executable
+                0x0000000000010bb0                _dl_check_caller
+                0x0000000000010fe0                _dl_open
+                0x0000000000011350                _dl_show_scope
+                0x00000000000114a0                _dl_addr_inside_object
+                0x0000000000011500                __GI__dl_find_dso_for_object
+                0x0000000000011500                _dl_find_dso_for_object
+                0x0000000000012020                _dl_close_worker
+                0x0000000000012eb0                _dl_close
+                0x0000000000012f30                _dl_runtime_resolve
+                0x0000000000012fa0                _dl_runtime_profile
+                0x0000000000013500                _dl_x86_64_save_sse
+                0x00000000000135f0                _dl_x86_64_restore_sse
+                0x00000000000136a0                _dl_cache_libcmp
+                0x0000000000013780                _dl_load_cache_lookup
+                0x0000000000013cd0                _dl_unload_cache
+                0x0000000000013d10                _dl_sysdep_start
+                0x0000000000013fd0                _dl_sysdep_start_cleanup
+                0x0000000000013fe0                _dl_show_auxv
+                0x0000000000014190                _dl_discover_osversion
+                0x0000000000014370                _dl_next_ld_env_entry
+                0x00000000000143b0                unsetenv
+                0x0000000000014430                __libc_memalign
+                0x0000000000014540                malloc
+                0x0000000000014550                calloc
+                0x0000000000014590                free
+                0x00000000000145c0                __sigjmp_save
+                0x00000000000145d0                __strerror_r
+                0x00000000000146b0                __GI___assert_fail
+                0x00000000000146b0                __assert_fail
+                0x0000000000014700                realloc
+                0x0000000000014790                __GI___assert_perror_fail
+                0x0000000000014790                __assert_perror_fail
+                0x0000000000014800                __strtoul_internal
+                0x00000000000149d0                _itoa
+                0x0000000000014a20                __strsep
+                0x0000000000014a20                strsep
+                0x0000000000014a20                __strsep_g
+                0x0000000000014ab0                __GI___chk_fail
+                0x0000000000014ab0                __chk_fail
+                0x0000000000014ac0                __brk
+                0x0000000000014ac0                brk
+                0x0000000000014b20                sbrk
+                0x0000000000014b20                __sbrk
+                0x0000000000014bb0                __getcwd
+                0x0000000000014bb0                getcwd
+                0x00000000000151c0                openat64
+                0x0000000000015210                __alloc_dir
+                0x0000000000015310                __opendirat
+                0x0000000000015380                __opendir
+                0x0000000000015380                opendir
+                0x0000000000015390                __fxstatat
+                0x0000000000015390                __fxstatat64
+                0x0000000000015390                __GI___fxstatat64
+                0x0000000000015400                _dl_make_tlsdesc_dynamic
+                0x00000000000156d0                _dl_tlsdesc_resolve_rela_fixup
+                0x00000000000158b0                _dl_tlsdesc_resolve_hold_fixup
+                0x00000000000158f0                _dl_unmap
+                0x0000000000015970                _dl_tlsdesc_return
+                0x0000000000015980                _dl_tlsdesc_undefweak
+                0x0000000000015990                _dl_tlsdesc_dynamic
+                0x0000000000015a30                _dl_tlsdesc_resolve_rela
+                0x0000000000015aa0                _dl_tlsdesc_resolve_hold
+ *fill*         0x0000000000015b12        0xe 
+ .text          0x0000000000015b20       0xe2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+                0x0000000000015bd0                __libc_check_standard_fds
+ .text          0x0000000000015c02        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ *fill*         0x0000000000015c02        0xe 
+ .text          0x0000000000015c10       0x28 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+                0x0000000000015c10                __closedir
+                0x0000000000015c10                closedir
+ *fill*         0x0000000000015c38        0x8 
+ .text          0x0000000000015c40       0x8a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+                0x0000000000015c40                readdir
+                0x0000000000015c40                __readdir64
+                0x0000000000015c40                __readdir
+                0x0000000000015c40                readdir64
+ *fill*         0x0000000000015cca        0x6 
+ .text          0x0000000000015cd0       0x29 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+                0x0000000000015cd0                rewinddir
+ *fill*         0x0000000000015cf9        0x7 
+ .text          0x0000000000015d00       0x80 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+                0x0000000000015d00                __getdents
+                0x0000000000015d00                __getdents64
+ .text          0x0000000000015d80       0x7f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+                0x0000000000015d80                fdopendir
+                0x0000000000015d80                __fdopendir
+ *fill*         0x0000000000015dff        0x1 
+ .text          0x0000000000015e00      0x110 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+                0x0000000000015e50                __profil
+                0x0000000000015e50                profil
+ .text          0x0000000000015f10        0x7 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+                0x0000000000015f10                __profile_frequency
+ *fill*         0x0000000000015f17        0x9 
+ .text          0x0000000000015f20       0x3d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+                0x0000000000015f20                _xstat
+                0x0000000000015f20                __xstat64
+                0x0000000000015f20                __GI___xstat64
+                0x0000000000015f20                __GI___xstat
+                0x0000000000015f20                __xstat
+ *fill*         0x0000000000015f5d        0x3 
+ .text          0x0000000000015f60       0x3d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+                0x0000000000015f60                __GI___fxstat
+                0x0000000000015f60                __GI___fxstat64
+                0x0000000000015f60                __fxstat64
+                0x0000000000015f60                _fxstat
+                0x0000000000015f60                __fxstat
+ *fill*         0x0000000000015f9d        0x3 
+ .text          0x0000000000015fa0       0x3d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+                0x0000000000015fa0                __GI___lxstat
+                0x0000000000015fa0                _lxstat
+                0x0000000000015fa0                __lxstat
+                0x0000000000015fa0                __lxstat64
+                0x0000000000015fa0                __GI___lxstat64
+ *fill*         0x0000000000015fdd        0x3 
+ .text          0x0000000000015fe0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+                0x0000000000015fe0                __open
+                0x0000000000015fe0                __libc_open
+                0x0000000000015fe0                open64
+                0x0000000000015fe0                open
+                0x0000000000015fe0                __open64
+ .text          0x0000000000016000       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+                0x0000000000016000                __read
+                0x0000000000016000                __libc_read
+                0x0000000000016000                read
+ .text          0x0000000000016020       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+                0x0000000000016020                __write
+                0x0000000000016020                write
+                0x0000000000016020                __libc_write
+ .text          0x0000000000016040       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+                0x0000000000016040                access
+                0x0000000000016040                __access
+ .text          0x0000000000016060       0xde /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+                0x0000000000016060                __libc_fcntl
+                0x0000000000016060                __fcntl
+                0x0000000000016060                fcntl
+ *fill*         0x000000000001613e        0x2 
+ .text          0x0000000000016140       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+                0x0000000000016140                __libc_close
+                0x0000000000016140                __close
+                0x0000000000016140                close
+ .text          0x0000000000016160       0x23 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+                0x0000000000016160                __mmap
+                0x0000000000016160                mmap
+                0x0000000000016160                __mmap64
+                0x0000000000016160                mmap64
+ *fill*         0x0000000000016183        0xd 
+ .text          0x0000000000016190       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+                0x0000000000016190                munmap
+                0x0000000000016190                __munmap
+ .text          0x00000000000161b0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+                0x00000000000161b0                __mprotect
+                0x00000000000161b0                mprotect
+ .text          0x00000000000161d0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+                0x00000000000161d0                __llseek
+                0x00000000000161d0                __lseek64
+                0x00000000000161d0                lseek
+                0x00000000000161d0                __libc_lseek64
+                0x00000000000161d0                llseek
+                0x00000000000161d0                __lseek
+                0x00000000000161d0                __libc_lseek
+                0x00000000000161d0                lseek64
+ .text          0x00000000000161f0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+                0x00000000000161f0                uname
+                0x00000000000161f0                __uname
+ .text          0x0000000000016210       0x51 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+                0x0000000000016210                _Exit
+                0x0000000000016210                _exit
+ *fill*         0x0000000000016261        0xf 
+ .text          0x0000000000016270        0x8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+                0x0000000000016270                __getpid
+                0x0000000000016270                getpid
+ .text          0x0000000000016278        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ *fill*         0x0000000000016278        0x8 
+ .text          0x0000000000016280       0x4f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+                0x0000000000016280                __sigsetjmp
+                0x0000000000016280                __GI___sigsetjmp
+ *fill*         0x00000000000162cf        0x1 
+ .text          0x00000000000162d0       0x4a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+                0x00000000000162d0                __longjmp
+ *fill*         0x000000000001631a        0x6 
+ .text          0x0000000000016320      0x22b /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+                0x0000000000016340                __libc_sigaction
+                0x0000000000016530                sigaction
+                0x0000000000016530                __sigaction
+ *fill*         0x000000000001654b        0x5 
+ .text          0x0000000000016550       0x7c /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+                0x0000000000016550                index
+                0x0000000000016550                strchr
+ *fill*         0x00000000000165cc        0x4 
+ .text          0x00000000000165d0       0x21 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+                0x00000000000165d0                strcmp
+ *fill*         0x00000000000165f1        0xf 
+ .text          0x0000000000016600       0xdc /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+                0x0000000000016600                strcpy
+ *fill*         0x00000000000166dc        0x4 
+ .text          0x00000000000166e0       0xe9 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+                0x00000000000166e0                strlen
+ *fill*         0x00000000000167c9        0x7 
+ .text          0x00000000000167d0      0x220 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+                0x00000000000167d0                __strnlen
+                0x00000000000167d0                strnlen
+ .text          0x00000000000169f0      0x344 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+                0x00000000000169f0                memchr
+                0x00000000000169f0                __memchr
+ *fill*         0x0000000000016d34        0xc 
+ .text          0x0000000000016d40      0x4e1 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+                0x0000000000016d40                bcmp
+                0x0000000000016d40                memcmp
+ *fill*         0x0000000000017221        0xf 
+ .text          0x0000000000017230      0x19f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+                0x0000000000017230                memmove
+ *fill*         0x00000000000173cf        0x1 
+ .text          0x00000000000173d0       0x10 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+                0x00000000000173d0                memset
+ .text          0x00000000000173e0      0x14d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+                0x00000000000173e0                mempcpy
+                0x00000000000173e0                __mempcpy
+ *fill*         0x000000000001752d        0x3 
+ .text          0x0000000000017530       0xdc /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+                0x0000000000017530                stpcpy
+                0x0000000000017530                __stpcpy
+ *fill*         0x000000000001760c        0x4 
+ .text          0x0000000000017610      0x160 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+                0x0000000000017610                memcpy
+ .text          0x0000000000017770      0x556 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+                0x0000000000017770                _wordcopy_fwd_aligned
+                0x00000000000178b0                _wordcopy_fwd_dest_aligned
+                0x00000000000179e0                _wordcopy_bwd_aligned
+                0x0000000000017b70                _wordcopy_bwd_dest_aligned
+ *fill*         0x0000000000017cc6        0xa 
+ .text          0x0000000000017cd0      0x204 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+                0x0000000000017cd0                __rawmemchr
+                0x0000000000017cd0                rawmemchr
+ *fill*         0x0000000000017ed4        0xc 
+ .text          0x0000000000017ee0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+                0x0000000000017ee0                setitimer
+                0x0000000000017ee0                __setitimer
+ *(.gnu.warning)
+
+.text.unlikely  0x0000000000000000      0x710
+ .text.unlikely
+                0x0000000000000000      0x710 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.fini
+ *(SORT(.fini))
+
+.rodata         0x0000000000000000      0xbb0
+ *(.rodata)
+ .rodata        0x0000000000000000      0xb70 /root/glibc-2.18/build/elf/dl-allobjs.os
+                0x0000000000000b60                __GI__itoa_lower_digits
+                0x0000000000000b60                _itoa_lower_digits
+ .rodata        0x0000000000000b70       0x40 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+
+.rodata.str1.1  0x0000000000000000     0x10ba
+ .rodata.str1.1
+                0x0000000000000000     0x10a6 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .rodata.str1.1
+                0x00000000000010a6       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+
+.rodata.str1.8  0x0000000000000000     0x2551
+ .rodata.str1.8
+                0x0000000000000000     0x2551 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.rodata.str1.16
+                0x0000000000000000      0x3b3
+ .rodata.str1.16
+                0x0000000000000000      0x3b3 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.rodata.cst16   0x0000000000000000       0x20
+ .rodata.cst16  0x0000000000000000       0x20 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.rodata.cst4    0x0000000000000000        0x4
+ .rodata.cst4   0x0000000000000000        0x4 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.rodata.str1.32
+                0x0000000000000000      0x121
+ .rodata.str1.32
+                0x0000000000000000      0x121 /root/glibc-2.18/build/elf/dl-allobjs.os
+
+.rodata1
+ *(.rodata1)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x0000000000000000     0x2a18
+ *(.eh_frame)
+ .eh_frame      0x0000000000000000     0x1fc0 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .eh_frame      0x0000000000001fc0       0x68 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .eh_frame      0x0000000000002028       0x38 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .eh_frame      0x0000000000002060       0x48 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .eh_frame      0x00000000000020a8       0x38 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .eh_frame      0x00000000000020e0       0x58 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .eh_frame      0x0000000000002138       0x48 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .eh_frame      0x0000000000002180       0x50 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+                                         0x48 (松开之前的大小)
+ .eh_frame      0x00000000000021d0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .eh_frame      0x0000000000002200       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .eh_frame      0x0000000000002230       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .eh_frame      0x0000000000002260       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .eh_frame      0x0000000000002290       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .eh_frame      0x00000000000022c0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .eh_frame      0x00000000000022f0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .eh_frame      0x0000000000002320       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .eh_frame      0x0000000000002350       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .eh_frame      0x0000000000002380       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .eh_frame      0x00000000000023b0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .eh_frame      0x00000000000023e0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .eh_frame      0x0000000000002410       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .eh_frame      0x0000000000002440       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .eh_frame      0x0000000000002470       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .eh_frame      0x00000000000024a0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .eh_frame      0x00000000000024d0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .eh_frame      0x0000000000002500       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .eh_frame      0x0000000000002530       0x48 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .eh_frame      0x0000000000002578       0xf0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+                                         0xe8 (松开之前的大小)
+ .eh_frame      0x0000000000002668       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .eh_frame      0x0000000000002698       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .eh_frame      0x00000000000026c8       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .eh_frame      0x00000000000026f8       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .eh_frame      0x0000000000002728       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .eh_frame      0x0000000000002758       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .eh_frame      0x0000000000002788       0x68 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .eh_frame      0x00000000000027f0       0x60 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .eh_frame      0x0000000000002850       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .eh_frame      0x0000000000002880       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .eh_frame      0x00000000000028b0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .eh_frame      0x00000000000028e0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .eh_frame      0x0000000000002910       0xa8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+                                         0xa0 (松开之前的大小)
+ .eh_frame      0x00000000000029b8       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .eh_frame      0x00000000000029e8       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.gnu_extab
+ *(.gnu_extab*)
+
+.exception_ranges
+ *(.exception_ranges .exception_ranges*)
+
+.eh_frame
+ *(.eh_frame)
+
+.gnu_extab
+ *(.gnu_extab)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.exception_ranges
+ *(.exception_ranges .exception_ranges*)
+
+.tdata
+ *(.tdata)
+
+.tbss
+ *(.tbss)
+
+.preinit_array
+ *(.preinit_array)
+
+.jcr
+ *(.jcr)
+
+.dynamic
+ *(.dynamic)
+
+.got
+ *(.got)
+ *(.igot)
+
+.got.plt
+ *(.got.plt)
+ *(.igot.plt)
+
+.data           0x0000000000000000      0xf84
+ *(.data)
+ .data          0x0000000000000000      0xf84 /root/glibc-2.18/build/elf/dl-allobjs.os
+                0x0000000000000000                _rtld_global
+                0x0000000000000000                _rtld_local
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .data          0x0000000000000f84        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.data.rel.ro    0x0000000000000000      0x26c
+ .data.rel.ro   0x0000000000000000      0x26c /root/glibc-2.18/build/elf/dl-allobjs.os
+                0x00000000000000c0                _rtld_global_ro
+                0x00000000000000c0                _rtld_local_ro
+                0x00000000000001f0                __pointer_chk_guard_local
+                0x00000000000001f8                _dl_skip_args
+                0x0000000000000200                _dl_argv_internal
+                0x0000000000000200                _dl_argv
+                0x0000000000000208                _dl_argc
+                0x0000000000000250                __stack_prot
+                0x0000000000000258                _dl_random
+                0x0000000000000260                __libc_stack_end
+                0x0000000000000260                __GI___libc_stack_end
+                0x0000000000000268                __libc_enable_secure_internal
+                0x0000000000000268                __libc_enable_secure
+
+.data1
+ *(.data1)
+
+.bss            0x0000000000000000      0x158
+ *(.dynbss)
+ *(.bss)
+ .bss           0x0000000000000000      0x124 /root/glibc-2.18/build/elf/dl-allobjs.os
+                0x00000000000000f8                __libc_multiple_libcs
+                0x0000000000000118                __curbrk
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .bss           0x0000000000000124        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ *fill*         0x0000000000000124        0x4 
+ .bss           0x0000000000000128       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .bss           0x0000000000000148        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .bss           0x0000000000000148        0x4 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .bss           0x000000000000014c        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ *fill*         0x000000000000014c        0x4 
+ .bss           0x0000000000000150        0x8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+                0x0000000000000150                _environ
+                0x0000000000000150                __environ
+                0x0000000000000150                environ
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .bss           0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+ *(COMMON)
+ COMMON         0x0000000000000158        0x0 /root/glibc-2.18/build/elf/dl-allobjs.os
+ COMMON         0x0000000000000158        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+
+.lbss
+ *(.dynlbss)
+ *(.lbss)
+ *(LARGE_COMMON)
+
+.lrodata
+ *(.lrodata)
+
+.ldata
+ *(.ldata)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000      0x9b4
+ *(.comment)
+ .comment       0x0000000000000000      0x61c /root/glibc-2.18/build/elf/dl-allobjs.os
+ .comment       0x000000000000061c       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .comment       0x000000000000064a       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .comment       0x0000000000000678       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .comment       0x00000000000006a6       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .comment       0x00000000000006d4       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .comment       0x0000000000000702       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .comment       0x0000000000000730       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .comment       0x000000000000075e       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .comment       0x000000000000078c       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .comment       0x00000000000007ba       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .comment       0x00000000000007e8       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .comment       0x0000000000000816       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .comment       0x0000000000000844       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .comment       0x0000000000000872       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .comment       0x00000000000008a0       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .comment       0x00000000000008ce       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .comment       0x00000000000008fc       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .comment       0x000000000000092a       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .comment       0x0000000000000958       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .comment       0x0000000000000986       0x2e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000      0xf50
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000      0x730 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_aranges
+                0x0000000000000730       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_aranges
+                0x0000000000000760       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .debug_aranges
+                0x0000000000000780       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_aranges
+                0x00000000000007b0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_aranges
+                0x00000000000007e0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_aranges
+                0x0000000000000810       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_aranges
+                0x0000000000000840       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_aranges
+                0x0000000000000870       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_aranges
+                0x00000000000008a0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .debug_aranges
+                0x00000000000008d0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_aranges
+                0x0000000000000900       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_aranges
+                0x0000000000000930       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_aranges
+                0x0000000000000960       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .debug_aranges
+                0x0000000000000990       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .debug_aranges
+                0x00000000000009c0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .debug_aranges
+                0x00000000000009f0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .debug_aranges
+                0x0000000000000a20       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_aranges
+                0x0000000000000a50       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .debug_aranges
+                0x0000000000000a80       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .debug_aranges
+                0x0000000000000ab0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .debug_aranges
+                0x0000000000000ae0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .debug_aranges
+                0x0000000000000b10       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .debug_aranges
+                0x0000000000000b40       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .debug_aranges
+                0x0000000000000b70       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_aranges
+                0x0000000000000ba0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .debug_aranges
+                0x0000000000000bd0       0x20 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .debug_aranges
+                0x0000000000000bf0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .debug_aranges
+                0x0000000000000c20       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .debug_aranges
+                0x0000000000000c50       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_aranges
+                0x0000000000000c80       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .debug_aranges
+                0x0000000000000cb0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .debug_aranges
+                0x0000000000000ce0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .debug_aranges
+                0x0000000000000d10       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .debug_aranges
+                0x0000000000000d40       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .debug_aranges
+                0x0000000000000d70       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .debug_aranges
+                0x0000000000000da0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_aranges
+                0x0000000000000dd0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_aranges
+                0x0000000000000e00       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .debug_aranges
+                0x0000000000000e30       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .debug_aranges
+                0x0000000000000e60       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .debug_aranges
+                0x0000000000000e90       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .debug_aranges
+                0x0000000000000ec0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .debug_aranges
+                0x0000000000000ef0       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .debug_aranges
+                0x0000000000000f20       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000    0x4ee81
+ *(.debug_info)
+ .debug_info    0x0000000000000000    0x487ea /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_info    0x00000000000487ea      0x492 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_info    0x0000000000048c7c       0xc1 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .debug_info    0x0000000000048d3d      0x2e5 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_info    0x0000000000049022      0x398 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_info    0x00000000000493ba      0x2b0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_info    0x000000000004966a      0x39f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_info    0x0000000000049a09      0x4df /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_info    0x0000000000049ee8      0xa0d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_info    0x000000000004a8f5     0x1466 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .debug_info    0x000000000004bd5b      0x306 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_info    0x000000000004c061      0x2fa /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_info    0x000000000004c35b      0x306 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_info    0x000000000004c661       0x65 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .debug_info    0x000000000004c6c6       0x65 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .debug_info    0x000000000004c72b       0x65 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .debug_info    0x000000000004c790       0x65 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .debug_info    0x000000000004c7f5      0x5a9 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_info    0x000000000004cd9e       0x65 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .debug_info    0x000000000004ce03       0x67 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .debug_info    0x000000000004ce6a       0x67 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .debug_info    0x000000000004ced1       0x67 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .debug_info    0x000000000004cf38       0x67 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .debug_info    0x000000000004cf9f       0x68 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .debug_info    0x000000000004d007      0x18e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_info    0x000000000004d195      0x121 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .debug_info    0x000000000004d2b6       0xaf /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .debug_info    0x000000000004d365       0x61 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .debug_info    0x000000000004d3c6       0x64 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .debug_info    0x000000000004d42a      0x66c /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_info    0x000000000004da96       0x6e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .debug_info    0x000000000004db04       0x6e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .debug_info    0x000000000004db72       0x6e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .debug_info    0x000000000004dbe0       0x73 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .debug_info    0x000000000004dc53       0x61 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .debug_info    0x000000000004dcb4       0x61 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .debug_info    0x000000000004dd15      0x7f6 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_info    0x000000000004e50b      0x2b8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_info    0x000000000004e7c3       0x66 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .debug_info    0x000000000004e829       0x61 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .debug_info    0x000000000004e88a       0x6e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .debug_info    0x000000000004e8f8       0x6e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .debug_info    0x000000000004e966      0x443 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .debug_info    0x000000000004eda9       0x71 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .debug_info    0x000000000004ee1a       0x67 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.debug_abbrev   0x0000000000000000     0x9cbe
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000     0x8033 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_abbrev  0x0000000000008033      0x1e0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_abbrev  0x0000000000008213       0x5f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .debug_abbrev  0x0000000000008272      0x172 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_abbrev  0x00000000000083e4      0x16d /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_abbrev  0x0000000000008551      0x126 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_abbrev  0x0000000000008677      0x1a2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_abbrev  0x0000000000008819      0x182 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_abbrev  0x000000000000899b      0x2a3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_abbrev  0x0000000000008c3e      0x248 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .debug_abbrev  0x0000000000008e86      0x10a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_abbrev  0x0000000000008f90      0x119 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_abbrev  0x00000000000090a9      0x10a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_abbrev  0x00000000000091b3       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .debug_abbrev  0x00000000000091c7       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .debug_abbrev  0x00000000000091db       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .debug_abbrev  0x00000000000091ef       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .debug_abbrev  0x0000000000009203      0x1f6 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_abbrev  0x00000000000093f9       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .debug_abbrev  0x000000000000940d       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .debug_abbrev  0x0000000000009421       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .debug_abbrev  0x0000000000009435       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .debug_abbrev  0x0000000000009449       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .debug_abbrev  0x000000000000945d       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .debug_abbrev  0x0000000000009471       0xd2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_abbrev  0x0000000000009543       0xa0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .debug_abbrev  0x00000000000095e3       0x40 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .debug_abbrev  0x0000000000009623       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .debug_abbrev  0x0000000000009637       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .debug_abbrev  0x000000000000964b      0x1dd /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_abbrev  0x0000000000009828       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .debug_abbrev  0x000000000000983c       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .debug_abbrev  0x0000000000009850       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .debug_abbrev  0x0000000000009864       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .debug_abbrev  0x0000000000009878       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .debug_abbrev  0x000000000000988c       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .debug_abbrev  0x00000000000098a0      0x176 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_abbrev  0x0000000000009a16      0x117 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_abbrev  0x0000000000009b2d       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .debug_abbrev  0x0000000000009b41       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .debug_abbrev  0x0000000000009b55       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .debug_abbrev  0x0000000000009b69       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .debug_abbrev  0x0000000000009b7d      0x119 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .debug_abbrev  0x0000000000009c96       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .debug_abbrev  0x0000000000009caa       0x14 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.debug_line     0x0000000000000000     0xc488
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x0000000000000000     0x9d0b /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_line    0x0000000000009d0b      0x15e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_line    0x0000000000009e69       0x46 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .debug_line    0x0000000000009eaf      0x1a7 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_line    0x000000000000a056      0x1e3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_line    0x000000000000a239      0x17e /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_line    0x000000000000a3b7      0x196 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_line    0x000000000000a54d      0x1fa /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_line    0x000000000000a747      0x28b /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_line    0x000000000000a9d2      0x1af /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .debug_line    0x000000000000ab81       0xf7 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_line    0x000000000000ac78       0xf8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_line    0x000000000000ad70       0xf8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_line    0x000000000000ae68       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-open.os)
+ .debug_line    0x000000000000aec1       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-read.os)
+ .debug_line    0x000000000000af1a       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-write.os)
+ .debug_line    0x000000000000af73       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-access.os)
+ .debug_line    0x000000000000afcc      0x1d4 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_line    0x000000000000b1a0       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-close.os)
+ .debug_line    0x000000000000b1f9       0x5a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mmap.os)
+ .debug_line    0x000000000000b253       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-munmap.os)
+ .debug_line    0x000000000000b2ac       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mprotect.os)
+ .debug_line    0x000000000000b305       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-llseek.os)
+ .debug_line    0x000000000000b35e       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-uname.os)
+ .debug_line    0x000000000000b3b7       0xa5 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_line    0x000000000000b45c       0xa4 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .debug_line    0x000000000000b500       0x2a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .debug_line    0x000000000000b52a       0x5f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setjmp.os)
+ .debug_line    0x000000000000b589       0x61 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-__longjmp.os)
+ .debug_line    0x000000000000b5ea      0x26b /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_line    0x000000000000b855       0x80 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strchr.os)
+ .debug_line    0x000000000000b8d5       0x68 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcmp.os)
+ .debug_line    0x000000000000b93d       0xa2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strcpy.os)
+ .debug_line    0x000000000000b9df       0xa8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strlen.os)
+ .debug_line    0x000000000000ba87       0x98 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-strnlen.os)
+ .debug_line    0x000000000000bb1f      0x117 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memchr.os)
+ .debug_line    0x000000000000bc36      0x1ca /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_line    0x000000000000be00      0x125 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_line    0x000000000000bf25       0x58 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memset.os)
+ .debug_line    0x000000000000bf7d       0xb1 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-mempcpy.os)
+ .debug_line    0x000000000000c02e       0xa2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-stpcpy.os)
+ .debug_line    0x000000000000c0d0       0xc0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcpy.os)
+ .debug_line    0x000000000000c190      0x1ca /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+ .debug_line    0x000000000000c35a       0xd5 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rawmemchr.os)
+ .debug_line    0x000000000000c42f       0x59 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-setitimer.os)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str      0x0000000000000000    0x2bc20
+ *(.debug_str)
+ .debug_str     0x0000000000000000    0x275e0 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_str     0x00000000000275e0      0x343 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_str     0x0000000000027923      0x1a8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-errno.os)
+ .debug_str     0x0000000000027acb      0x2e3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_str     0x0000000000027dae      0x35a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_str     0x0000000000028108      0x2d3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_str     0x00000000000283db      0x2d3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_str     0x00000000000286ae      0x412 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_str     0x0000000000028ac0      0x6c9 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_str     0x0000000000029189      0xe23 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-prof-freq.os)
+ .debug_str     0x0000000000029fac      0x309 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_str     0x000000000002a2b5      0x307 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_str     0x000000000002a5bc      0x30c /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_str     0x000000000002a8c8      0x465 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_str     0x000000000002ad2d      0x1e3 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_str     0x000000000002af10      0x1e8 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getpid.os)
+ .debug_str     0x000000000002b0f8      0x13b /root/glibc-2.18/build/elf/rtld-libc.a(rtld-environ.os)
+ .debug_str     0x000000000002b233      0x498 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_str     0x000000000002b6cb      0x1c6 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_str     0x000000000002b891      0x1f0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_str     0x000000000002ba81      0x19f /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+
+.debug_loc      0x0000000000000000    0x2f4c0
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000    0x2a37a /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_loc     0x000000000002a37a       0xe1 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-check_fds.os)
+ .debug_loc     0x000000000002a45b       0x82 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-closedir.os)
+ .debug_loc     0x000000000002a4dd      0x1e2 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_loc     0x000000000002a6bf       0x4c /root/glibc-2.18/build/elf/rtld-libc.a(rtld-rewinddir.os)
+ .debug_loc     0x000000000002a70b      0x289 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_loc     0x000000000002a994       0x95 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fdopendir.os)
+ .debug_loc     0x000000000002aa29      0x23a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-profil.os)
+ .debug_loc     0x000000000002ac63      0x20a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_loc     0x000000000002ae6d      0x1ff /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_loc     0x000000000002b06c      0x20a /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_loc     0x000000000002b276      0x692 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_loc     0x000000000002b908      0x15b /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_loc     0x000000000002ba63      0x297 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_loc     0x000000000002bcfa     0x2126 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_loc     0x000000000002de20      0x67c /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+ .debug_loc     0x000000000002e49c     0x1024 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-wordcopy.os)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x0000000000000000     0x7140
+ *(.debug_ranges)
+ .debug_ranges  0x0000000000000000     0x6bb0 /root/glibc-2.18/build/elf/dl-allobjs.os
+ .debug_ranges  0x0000000000006bb0       0xa0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-readdir.os)
+ .debug_ranges  0x0000000000006c50       0xb0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-getdents.os)
+ .debug_ranges  0x0000000000006d00       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-xstat.os)
+ .debug_ranges  0x0000000000006d30       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fxstat.os)
+ .debug_ranges  0x0000000000006d60       0x30 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-lxstat.os)
+ .debug_ranges  0x0000000000006d90       0xb0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-fcntl.os)
+ .debug_ranges  0x0000000000006e40       0x90 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-_exit.os)
+ .debug_ranges  0x0000000000006ed0       0x70 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-sigaction.os)
+ .debug_ranges  0x0000000000006f40       0xf0 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memcmp.os)
+ .debug_ranges  0x0000000000007030      0x110 /root/glibc-2.18/build/elf/rtld-libc.a(rtld-memmove.os)
+
+.debug_macro
+ *(.debug_macro)
+
+.gnu.attributes
+ *(.gnu.attributes)
+OUTPUT(/root/glibc-2.18/build/elf/librtld.os elf64-x86-64)

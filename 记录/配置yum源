@@ -1,0 +1,12 @@
+阿里yum源
+http://mirrors.aliyun.com/repo/Centos-7.repo
+网易yum源
+http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+epel源
+加载阿里和网易源,安装epel-release,使用阿里开源镜像提供的epel源
+wget -O /etc/yum.repos.d/epel-7.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all
+yum repolist
+
+

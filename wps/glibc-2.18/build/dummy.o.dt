@@ -1,0 +1,11 @@
+/root/glibc-2.18/build/dummy.o: /root/glibc-2.18/build/dummy.c \
+ ../include/stdc-predef.h ../include/libc-symbols.h \
+ /root/glibc-2.18/build/config.h ../sysdeps/generic/symbol-hacks.h
+
+../include/stdc-predef.h:
+
+../include/libc-symbols.h:
+
+/root/glibc-2.18/build/config.h:
+
+../sysdeps/generic/symbol-hacks.h:
