@@ -1,0 +1,148 @@
+官网:http://dev.mysql.com/downloads/mysql
+mysql-community-client				客户端应用程序
+mysql-community-common				数据库和客户端共享文件
+mysql-community-devel					客户端应用程序的库和头文件
+mysql-community-embedded				嵌入式函数库
+mysql-community-embedded-compat		嵌入式兼容函数库
+mysql-community-embedded-devel		头文件和库文件作为Mysql的嵌入式
+mysql-community-libs					Mysql数据库客户端应用程序的共享库
+mysql-community-libs-compat			客户端应用程序的共享兼容库
+
+主配置文件:/etc/my.cnf
+数据库目录:/var/lib/mysql
+默认端口:3306
+传输协议:TCP
+进程所有者,所有组:mysql
+错误日志文件:/var/log/mysqld.log
+服务:mysqld
+
+初始随机密码:/var/log/mysqld.log
+
+连接数据库:mysql -h数据库地址 -u用户 -p密码
+		mysql -hlocalhost -uroot -p123456
+
+修改root密码
+alter user root@localhost identified by "密码"
+
+密码策略
+validate_password_policy
+0	校验长度
+1	校验长度,数字,大小写,特殊字符
+2	校验长度,数字,大小写,特殊字符,字典文件
+
+show variables like "%password%";		查看变量
+set global validate_password_policy=0;	修改变量
+set global validate_password_length=6;
+永久设置
+/etc/my.cnf
+[mysqld]
+validate_password_policy=0
+validate_password_length=6
+
+sql命令分类
+DDL	数据库定义语言	create alter drop
+DML	数据操作语言		insert update delete
+DCL 数据控制语言		grant revoke
+DTL 数据事物语言		commit rollback savepoint
+
+库管理命令
+show databases;
+select user();
+use 库民;
+select database();
+create database 库名;
+show tables;
+drop database 库名;
+
+建表
+create table 库名.表名(字段 类型(宽度) 约束条件,字段 类型(宽度) 约束条件,......) default charset=utf8;
+desc 库名.表名;
+drop table 库名.表名
+
+记录管理命令
+select 字段 from 库名.表名
+insert into 库名.表名 values(值列表);
+update 库名.表名 set 字段=值;
+delete from 表名;
+
+数据类型
+字符类型
+char:最大字符数255,字符个数不足在右边用空格补全,超出则无法写入数据.
+varchar:最大字符数65532,按数据实际大小分配空间,超出则无法写入数据.
+text/blob:>65535,按数据实际大小分配空间
+char(5) varchar(30)
+
+数值类型
+tinyint	微小整数		-128~127		0~255
+smallint	小整数		-32768~32767	0~65535
+mediumimt	中整型		-2^23~(2^23)-1	0~(2^24)-1
+int			大整型		-2^31~(2^31)-1	0~(2^32)-1
+bigint		极大整型		-2^63~(2^63)-1	0~(2^64)-1
+unsigned
+
+浮点型
+float		单精度	0-(2^32)-1
+default	双精度	0-(2^64)-1
+float(5,2),总长度5,3位正数,2位小数
+double(5,2),总长度5,3位正数,2位小数
+
+时间日期类型
+datetime
+范围: 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
+格式: yyyymmddhhmmss
+
+timestamp
+范围: 1970-01-01 00:00:00 ~ 2038-01-19 00:00:00
+格式: yyyymmddhhmmss
+当未给timestamp类型字段赋值,自动以当前系统时间赋值
+
+date
+范围: 0001-01-01 ~ 9999-12-31
+格式: yyyymmdd
+
+year
+范围: 1901 ~ 2155
+格式: yyyy
+当使用2位数赋值时,01~69视为2001~2069,70~99视为1970~1999
+
+time
+格式: HH:MM:SS
+
+时间函数
+curtime()
+curdate()
+now()
+year()
+month()
+day()
+date()
+time()
+
+枚举类型
+单选: enum(值1,值2,值3,......)
+多选: set(值1,值2,值3,......)
+
+约束条件
+null
+not null
+key
+default
+extra
+
+修改表结构
+alter table 表名 add 字段 类型(宽度) 约束条件 [ after 字段名 | first ] ;
+alter table t10 add age int	not null default 19 after name;
+
+alter table 表名 modify 字段 类型(宽度)  约束条件 [ after 字段名 | first ] ;
+alter table t10 modify age int not null default 19 after name;
+
+alter table 表名 change 源字段 新字段 类型(宽度)  约束条件 [ after 字段名 | first ] ;
+alter table t10 modify age newage int not null default 19 after name;
+
+alter table 表名 drop 字段名
+alter table t10 drop age;
+
+alter table 表名 rename 新表名;
+alter table t10 rename student; 
+
+

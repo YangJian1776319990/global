@@ -1,0 +1,370 @@
+依赖包:gcc pcre-devel openssl-devel
+如何查看依赖包:官方网站,里面有一篇文章,关于依赖包 或 尝试安装,根据报错安装依赖包
+安全策略都是针对用户和组
+别人可以根据程序漏洞获取用户的权限
+解决方法: root执行命令--->以普通用户启动服务
+yum 安装是自动创建不能登录的普通用户
+如安装httpd时,自动创建apache
+源码包安装不会自动创建普通用户,需要手动创建
+
+
+安装依赖包gcc make
+创建没有登录权限的用户
+配置./configure   
+--prefix=/路径							指定安装路径,  如果不配置该选项，可执行文件默认放在/usr/local/bin，
+																	库文件默认放在/usr/local/lib
+																	配置文件默认放在/usr/local/etc
+																	其他的资源文件放在/usr/local/share
+--user=用户名							指定用户
+--group=组								指定组不指定用户和组,则强制默认为nobody用户和组
+--with-(模块名)							开启模块对应的功能,不指定则安装默认的模块
+编译make
+安装make install
+卸载make uninstall						前提是Makefile文件有uninstall命令,Makefile文件通过./configure后产生
+如果没有配置--prefix选项，源码包也没有提供make uninstall，则可以通过以下方式完成卸载：
+找一个临时目录重新安装一遍，如：./configure --prefix=/tmp/to_remove && make install
+然后遍历/tmp/to_remove的文件，删除对应安装位置的文件即可因为/tmp/to_remove里的目录结构就是没有配置--prefix选项是的目录结构。
+./configure --help						查看该软件支持的模块
+升级:不需要进行make install,将原来程序改名,然后将objs目录下的新程序移动到对应目录,然后重启服务即可
+升级原因:版本过旧  缺少模块,需要添加新的模块
+
+
+
+nginx	port:80
+默认安装路径:/usr/local/nginx
+启动:安装路径/sbin/nginx
+/usr/local/nginx/sbin/nginx							启动服务
+/usr/local/nginx/sbin/nginx -s stop					关闭服务
+/usr/local/nginx/sbin/nginx -s reload				重新加载配置文件
+/usr/local/nginx/sbin/nginx -V						查看软件信息
+/usr/local/nginx/sbin/nginx –v						查看软件版本
+
+nginx常用模块
+http_ssl_module				支持网站加密功能
+http_stub_status_module		支持查看网站的基本状态信息
+
+配置文件:/usr/local/nginx/conf/nginx.conf
+#user  nobody;												如果不指定用户,则默认是nobody
+worker_processes  1;										nginx进程数,通常设置等于内核数
+
+#error_log  logs/error.log;								错误日志
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;								当前nginx进程pid存放在这个文件内
+
+events {
+    worker_connections  1024;								单个后台worker_process进程的最大并发链接数,并发总数是 worker_processes 和 worker_connections 的乘积
+}
+
+http {
+    include       mime.types;								文件扩展名与类型映射表
+    default_type  application/octet-stream;				默认文件类型
+    access_log  logs/access.log  main;					访问日志
+    sendfile        on;
+    #tcp_nopush     on;
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    gzip  on;												开启网站gzip压缩功能
+	gzip_min_length 1k;									设置允许压缩的页面最小字节数
+	gzip_buffers 4 16k;									压缩缓冲区大小,用来存储gzip压缩结果。
+	gzip_http_version 1.0;								压缩版本,默认是1.1，目前大部分浏览器已经支持GZIP解压，使用默认即可
+	gzip_comp_level 9;										压缩比率,用来指定GZIP压缩比，1压缩比最小，处理速度最快；9压缩比最大，传输速度最快,处理最慢
+	gzip_types       text/plain text/css;				指定被压缩的类型
+	gzip_vary off;											前端的缓存服务器缓存经过GZIP压缩的页面
+	
+    server {
+        listen       80;									虚拟主机监听的端口
+        server_name  localhost;							虚拟域名
+        charset utf-8;									页面编码方式,如utf-8
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;									网站根路径
+            index  index.php index.html index.htm;		默认首页
+        }
+        location /status {								开启网站状态监听功能
+            stub_status on;
+            allow 192.168.2.0/24;						允许范围内ip访问
+            deny all;										拒绝所有ip访问
+        }
+error_page  404              /404.html;					定义404错误页面
+
+        error_page   500 502 503 504  /50x.html;		定义50x错误页面,
+        location = /50x.html {
+            root   html;
+        }
+
+
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        location ~ \.php$ {
+            root           html;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+        #   fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+            include        fastcgi.conf;
+        }
+        location ~ /\.ht {				拒绝所有ip访问.ht文件
+            deny  all;
+        }
+    }
+    server {					https安全服务,需要安装http_ssl_module模块
+        listen       443 ssl;
+        server_name  localhost;
+
+        ssl_certificate      cert.pem;
+        ssl_certificate_key  cert.key;
+
+        ssl_session_cache    shared:SSL:1m;
+        ssl_session_timeout  5m;
+
+        ssl_ciphers  HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers  on;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+    }
+}
+http反向代理服务
+http {
+	......
+	upstream backend_server {								反向代理负载均衡设定部分,upstream表示负载服务器池
+    	server   10.254.244.20:81 weight=1 max_fails=2 fail_timeout=30s;
+   		server   10.254.242.40:81 weight=1 max_fails=2 fail_timeout=30s;
+    	server   10.254.245.19:81 weight=1 max_fails=2 fail_timeout=30s;
+    	server   10.254.243.39:81 down;
+		fail_fails设置在fail_timeout指定时间内连接到主机的失败次数，超过该次数该主机被认为不可用,默认情况下这个数值设置为 1,零值的话禁用这个数量的尝试
+		这里是在30s内尝试2次失败即认为主机不可用
+		weight:权重
+		down标记服务器已关机，不参与集群调度
+	}
+	server {
+		proxy_pass http://backend_server;
+	}
+}
+
+tcp,udp反向代理
+
+nginx软件是模块化设计的软件(现代化的软件都是模块化的)
+比如office:分word,excel,ppt等,有时候我们不需要所有的功能,模块化软件可以根据需求安装
+红帽命令规范:后跟-devel都是不能独立工作的依赖包
+
+netstat命令可以查看系统中启动的端口信息，该命令常用选项如下：
+-a显示所有端口的信息
+-n以数字格式显示端口号
+-t显示TCP连接的端口
+-u显示UDP连接的端口
+-l显示服务正在监听的端口信息，如httpd启动后，会一直监听80端口
+-p显示监听端口的服务名称是什么（也就是程序名称）
+
+ 
+
+修改配置
+vim /usr/local/nginx/conf/nginx.conf
+.. ..
+server {
+        listen       80;						监听端口
+        server_name  localhost;				域名
+		rewrite /a.html /b.html;				地址重写,地址栏不变
+		rewrite /a.html(这里支持正则) /b.html redirect;	地址栏变化
+		rewrite ^/	http://uc.tmooc.cn						
+        auth_basic "Input Password:";                        //认证提示符信息
+        auth_basic_user_file "/usr/local/nginx/pass";        //认证的密码文件
+        location / {
+            root   html;		也可以绝对路径,默认相对路径(/usr/local/nginx)
+            index  index.html index.htm;			默认首页
+        }
+if ($http_user_agent ~* firefox) {
+        rewrite ^/(.*)$ /firefox/$1;
+}
+  }
+
+生成密码文件
+yum -y install  httpd-tools
+htpasswd -c /usr/local/nginx/pass   tom        //创建密码文件,-c新建文件
+New password: 
+Re-type new password: 
+Adding password for user tom
+htpasswd  /usr/local/nginx/pass   jerry      //追加用户，不使用-c选项
+New password: 
+Re-type new password: 
+Adding password for user jerry
+cat /usr/local/nginx/pass
+
+htpasswd /usr/local/nginx/pass kenji		加-c会覆盖原来的文件
+
+tailf 			动态查看文件的最后几行
+
+rewrite /a.html  /b.html; 
+rewrite ^/  http://www.tmooc.cn/;
+
+集群
+
+
+upstream webserver {
+#通过ip_hash设置调度规则为：相同客户端访问相同服务器
+                                              mnbvjhgfuytr4756 9870oyiulkjh,mnb
+                server 192.168.2.100 weight=1 max_fails=2 fail_timeout=10;
+                server 192.168.2.200 weight=2 max_fails=2 fail_timeout=10;
+        }
+
+
+
+四层代理--stream(模块) tcp udp
+代理ssh服务
+stream{
+upstream heihei {
+server 192.168.2.100:22;
+server 192.168.2.200:22;
+}
+server {
+listen 6666;
+proxy_pass heihei;
+}
+
+查看服务器状态信息(http_stub_status_module)
+PV(page view) 总共看了多少个页面
+UV(user view) 用户数量
+location /status {
+                stub_status on;
+                 #allow IP地址;
+                 #deny IP地址;
+        }
+
+tcp(一次连接(三次握手),多次请求)
+Active connections		实时并发量
+server accepts			服务端连接量
+handled				已处理的连接量
+request				请求数量
+
+
+优化Nginx并发量
+1）修改Nginx配置文件，增加并发量
+vim /usr/local/nginx/conf/nginx.conf
+.. ..
+worker_processes  2;                    //与CPU核心数量一致
+events {
+worker_connections 65535;        //每个worker最大并发连接数
+}
+.. ..
+2）优化Linux内核参数（最大文件数量）
+ulimit -a                        //查看所有属性值
+ulimit -Hn 100000                //设置硬限制（临时规则）,不能超越
+ulimit -Sn 100000                //设置软限制（临时规则）,可以超越,会有警告
+vim /etc/security/limits.conf
+    .. ..
+*               soft    nofile            100000
+*               hard    nofile            100000
+#该配置文件分4列，分别如下：
+#用户或组    硬限制或软限制    需要限制的项目   限制的值
+3）优化后测试服务器并发量（因为客户端没调内核参数，所以在proxy测试）
+ab -n 2000 -c 2000 http://192.168.4.5/
+
+修改Nginx配置文件，增加数据包头部缓存大小
+.. ..
+http {
+client_header_buffer_size    1k;        //默认请求包头信息的缓存    
+large_client_header_buffers  4 4k;      //大请求包头部信息的缓存个数与容量
+.. ..
+
+
+定义对静态页面的缓存时间
+......
+location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml)$ {
+expires        30d;            //定义客户端缓存时间为30天
+}
+
+日志切割
+日志文件越来越大怎么办？单个文件10G? 如何切割？（非常常见的面试题）
+步骤：1. 把旧的日志重命名
+2. kill USR1 PID(nginx的进程PID号)
+1）手动执行
+备注：/usr/local/nginx/logs/nginx.pid文件中存放的是nginx的进程PID号。
+mv access.log access2.log
+kill -USR1 $(cat /usr/local/nginx/logs/nginx.pid)
+2）自动完成
+每周5的03点03分自动执行脚本完成日志切割工作。
+vim /usr/local/nginx/logbak.sh
+#!/bin/bash
+date=`date +%Y%m%d`
+logpath=/usr/local/nginx/logs
+mv $logpath/access.log $logpath/access-$date.log
+mv $logpath/error.log $logpath/error-$date.log
+kill -USR1 $(cat $logpath/nginx.pid)
+
+crontab -e
+03 03 * * 5  /usr/local/nginx/logbak.sh
+
+对页面进行压缩处理
+1）修改Nginx配置文件
+cat /usr/local/nginx/conf/nginx.conf
+http {
+.. ..
+gzip on;                            //开启压缩
+gzip_min_length 1000;     //小文件不压缩(大文件也不压缩,仅对特定文件压缩)
+gzip_comp_level 4;                //压缩比率,数字越大,效果越好,时间越久
+gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+                                    //对特定文件压缩，类型参考conf/mime.types
+.. ..
+}
+
+
+服务器内存缓存
+1）如果需要处理大量静态文件，可以将文件缓存在内存，下次访问会更快。
+http { 
+open_file_cache          max=2000  inactive=20s;
+        open_file_cache_valid    60s;
+        open_file_cache_min_uses 5;
+        open_file_cache_errors   off;
+//设置服务器最大缓存2000个文件句柄，关闭20秒内无请求的文件句柄
+//文件句柄的有效时间是60秒，60秒后过期
+//只有访问次数超过5次会被缓存
+
+
+session
+session:存储在服务器端,保存用户名,登录状态等信息.
+默认目录:/var/lib/php/session
+cookies:由服务器下发给客户端,保存在客户端的一个文件.
+
+session共享
+构建memcached服务
+yum -y install memcached
+vim /usr/lib/systemd/system/memcached.service
+ExecStart=/usr/bin/memcached -u $USER -p $PORT -m $CACHESIZE -c $MAXCONN $OPTIONS
+
+配置文件: /etc/sysconfig/memcached
+PORT="11211"				//端口号
+USER="memcached"
+MAXCONN="1024"
+CACHESIZE="64"
+OPTIONS=""
+
+使用telnet访问memcached服务器
+使用yum安装telnet
+
+telnet  192.168.4.5  11211
+Trying 192.168.4.5...
+……
+##提示：0表示不压缩，180为数据缓存时间，3为需要存储的数据字节数量。
+set name 0 180 3                //定义变量，变量名称为name
+plj                            //输入变量的值，值为plj                
+STORED
+get name                        //获取变量的值
+VALUE name 0 3                 //输出结果
+plj
+END
+##提示：0表示不压缩，180为数据缓存时间，3为需要存储的数据字节数量。
+add myname 0 180 10            //新建，myname不存在则添加，存在则报错
+set myname 0 180 10            //添加或替换变量
+replace myname 0 180 10        //替换，如果myname不存在则报错
+get myname                    //读取变量
+append myname 0 180 10        //向变量中追加数据
+delete myname                    //删除变量
+flush_all                        //清空所有
+quit                            //退出登录                                  

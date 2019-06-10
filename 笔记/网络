@@ -1,0 +1,173 @@
+display version							显示VRP版本
+display current-configuration				显示当前配置信息 
+
+步骤四：使用账户和密码登录终端
+
+<Huawei>system-view 
+[Huawei]aaa												进入aaa认证
+[Huawei-aaa]local-user admin01 password cipher 123		创建账户叫admin01,密码123       
+[Huawei-aaa]quit
+[Huawei]user-interface console 0        
+[Huawei-ui-console0]authentication-mode aaa				激活配置
+<Huawei>save   							保存交换机的配置     
+<Huawei>reset saved-configuration		恢复设备出厂默认值
+<Huawei>reboot								重启设备
+
+[Huawei]display mac-address				查看mac地址
+
+
+划分VLAN
+ 
+[Huawei]vlan batch 2 3												创建VLAN2、3
+[Huawei]port-group 1													创建接口组
+[Huawei-port-group-1]group-member Ethernet0/0/3 Ethernet0/0/4		添加接口组成员
+[Huawei-port-group-1]port link-type access							
+[Huawei-port-group-1]port default vlan 2								将接口加入vlan
+
+中继链路
+[Huawei]interface Ethernet0/0/7
+[Huawei-Ethernet0/0/7]port default vlan 1
+[Huawei-Ethernet0/0/7]port link-type trunk
+[Huawei-Ethernet0/0/1]port trunk allow-pass vlan all
+
+链路聚合配置
+[Huawei]interface Eth-trunk 1
+[Huawei- Eth-trunk1]trunkport ethernet 0/0/1  0/0/2
+
+配置静态路由
+<Huawei>system-view 
+[Huawei]interface GigabitEthernet 0/0/0
+[Huawei-GigabitEthernet0/0/1]ip address 192.168.1.254 24
+[Huawei-GigabitEthernet0/0/1]quit
+[Huawei]interface GigabitEthernet 0/0/1
+[Huawei-GigabitEthernet0/0/1]ip address 192.168.2.1 24
+[Huawei]ip route-static 192.168.3.0 24 192.168.2.2
+[Huawei]ip route-static 192.168.4.0 24 192.168.2.2
+
+三层交换机基本配置
+[Huawei]vlan batch 2 3
+[Huawei]interface Vlanif 2
+[Huawei-Vlanif1]ip address 192.168.1.254 24
+[Huawei]interface Ethernet0/0/2
+[Huawei-Ethernet0/0/7] port link-type access
+[Huawei-Ethernet0/0/7] port default vlan 2
+
+
+动态路由
+[Huawei]ospf 1
+[Huawei-ospf-1]area 0
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.1.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.2.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.3.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.4.0 0.0.0.255
+[Huawei]ip route-static 0.0.0.0 0.0.0.0 192.168.4.2
+
+基本ACL的配置
+[Huawei]interface GigabitEthernet 0/0/0
+[Huawei-GigabitEthernet0/0/0] ip address  192.168.1.254 24
+[Huawei]acl 2000
+[Huawei-acl-basic-2000]rule deny source 192.168.2.1 0
+[Huawei]interface GigabitEthernet 0/0/1
+[Huawei-GigabitEthernet0/0/1]ip address  192.168.2.254 24
+[Huawei-GigabitEthernet0/0/1]traffic-filter inbound acl 2000
+
+[Huawei]acl 2001
+[Huawei-acl-basic-2001]rule permit source 192.168.2.1 0
+[Huawei-acl-basic-2001]rule deny source any
+[Huawei]interface GigabitEthernet 0/0/1
+[Huawei-GigabitEthernet0/0/1]undo traffic-filter inbound acl 2000
+[Huawei-GigabitEthernet0/0/1] traffic-filter inbound acl 2001
+
+高级ACL
+[Huawei]acl 3000
+[Huawei-acl-adv-3000]rule deny tcp source 192.168.2.1 0 destination 192.168.1.1 
+0 destination-port eq 21
+[Huawei-acl-adv-3000]rule deny tcp source 192.168.2.2 0 destination 192.168.1.1 
+0 destination-port eq 80
+[Huawei]interface g0/0/1
+[Huawei-GigabitEthernet0/0/1]traffic-filter inbound acl 3000
+
+
+配置静态NAT
+[Huawei]interface GigabitEthernet 0/0/0
+[Huawei-GigabitEthernet0/0/0] ip address  100.0.0.1 8
+[Huawei-GigabitEthernet0/0/0]nat static global 100.0.0.2 inside 192.168.2.1
+[Huawei-GigabitEthernet0/0/0]nat static global 100.0.0.3 inside 192.168.2.2
+
+Easy ip
+[Huawei]acl 2000    
+[Huawei-acl-basic-2000]rule permit source any
+[Huawei]interface g0/0/0
+[Huawei-GigabitEthernet0/0/0]nat outbound 2000
+
+
+三层交换配置VRRP
+<Huawei>system-view 
+[Huawei]interface GigabitEthernet 0/0/0
+[Huawei-GigabitEthernet0/0/0]ip address 192.168.2.1 24
+[Huawei]interface GigabitEthernet 0/0/1
+[Huawei-GigabitEthernet0/0/1]ip address 192.168.3.1 24
+[Huawei]interface GigabitEthernet 0/0/2
+[Huawei-GigabitEthernet0/0/2]ip address 192.168.4.254 24
+[Huawei]ospf    
+[Huawei-ospf-1]area 0
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.2.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.3.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.4.0 0.0.0.255
+MS1
+<Huawei>system-view
+[Huawei]interface Vlanif 1
+[Huawei-Vlanif1]ip add 192.168.1.252 24
+[Huawei]vlan 2
+[Huawei-vlan2]quit
+[Huawei]interface Vlanif 2
+[Huawei-Vlanif2]ip address 192.168.2.2 24
+[Huawei-Vlanif2]quit
+[Huawei]interface GigabitEthernet 0/0/2
+[Huawei-GigabitEthernet0/0/2]port link-type access 
+[Huawei-GigabitEthernet0/0/2]port default vlan 2
+[Huawei]ospf    
+[Huawei-ospf-1]area 0
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.1.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.2.0 0.0.0.255
+[Huawei]interface Vlanif 1
+[Huawei-Vlanif1]vrrp vrid 1 virtual-ip 192.168.1.254
+MS2
+<Huawei>system-view
+[Huawei]interface Vlanif 1
+[Huawei-Vlanif1]ip add 192.168.1.253 24
+[Huawei]vlan 3
+[Huawei-vlan3]quit
+[Huawei]interface Vlanif 3
+[Huawei-Vlanif3]ip address 192.168.3.2 24
+[Huawei-Vlanif3]quit
+[Huawei]interface GigabitEthernet 0/0/2
+[Huawei-GigabitEthernet0/0/2]port link-type access 
+[Huawei-GigabitEthernet0/0/2]port default vlan 3
+[Huawei]ospf    
+[Huawei-ospf-1]area 0
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.1.0 0.0.0.255
+[Huawei-ospf-1-area-0.0.0.0]network 192.168.3.0 0.0.0.255
+[Huawei]interface Vlanif 1
+[Huawei-Vlanif1]vrrp vrid 1 virtual-ip 192.168.1.254
+HSRP配置好后将服务器的网关设置为192.168.1.254，检测网络状态。
+
+4 案例4：网络负载均衡
+MS1
+[Huawei]interface Vlanif 10
+[Huawei-Vlanif10]ip address 192.168.10.252 24
+[Huawei-Vlanif10]vrrp vrid 1 virtual-ip 192.168.10.254
+[Huawei-Vlanif10]vrrp vrid 1 priority 110
+[Huawei]interface Vlanif 20
+[Huawei-Vlanif20]ip address 192.168.20.252 24
+[Huawei-Vlanif20]vrrp vrid 2 virtual-ip 192.168.20.254
+MS2
+[Huawei]interface Vlanif 10
+[Huawei-Vlanif10]ip address 192.168.10.253 24
+[Huawei-Vlanif10]vrrp vrid 1 virtual-ip 192.168.10.254
+[Huawei]interface Vlanif 20
+[Huawei-Vlanif20]ip address 192.168.20.253 24
+[Huawei-Vlanif20]vrrp vrid 2 virtual-ip 192.168.20.254
+[Huawei-Vlanif20]vrrp vrid 2 priority 110
+*最后如果测试效果则不要忘记将最下面两台交换机对应的设备接口加入相应的vlan
+

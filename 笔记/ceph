@@ -1,0 +1,257 @@
+存储:
+DAS:直连存储direct access storage
+	IDE SATA SAS
+NAS:网络附加存储(nfs,http,samba,ftp)
+分区: block块设备------>格式化(ext3,ext4,xfs,ntfs,fat32): 文件系统
+SAN:存储区域网络(iscsi):共享块设备
+DAS:扩展性差
+分布式存储:Lustre,Hadoop,FastDFs,Ceph(标杆),GlusterFs
+
+Ceph:分布式文件系统(高扩展,高可用,高性能),可提供PB级别存储空间
+提供对象存储(如:百度云盘),块存储,文件系统存储
+官网:http://docs.ceph.org/start/intro
+
+组件:标准光盘不提供,真机/linux-soft/02/ceph10.iso
+OSDS:存储设备,安装在共享端
+Monitos:集群监控组件,安装在服务端,通过对文件MD5值取余,决定文件存储在那个共享端,企业至少三台monitos,所有文件默认存储3份,冗余性,高可靠,大文件默认切割为小文件,并发存储和读取,提高效率
+RadosGateway(RGW):对象存储网关------>提供对象存储
+MDSs:存放文件系统元数据(对象存储和块存储不需要)------>提供文件系统存储
+Client:ceph客户端
+
+对象存储:
+
+
+
+
+
+安装部署软件ceph-deploy
+yum -y install ceph-deploy
+ceph-deploy  --help
+ceph-deploy mon --help
+创建目录
+mkdir ceph-cluster
+cd ceph-cluster
+
+部署Ceph集群
+创建Ceph集群配置,在ceph-cluster目录下生成Ceph配置文件。
+ceph-deploy new node1 node2 node3				定义monitor主机,目录下生成ceph.conf  ceph-deploy-ceph.log  ceph.mon.keyring
+
+cat ceph.conf
+[global]
+fsid = 415fbb2b-4a01-4707-b48b-99f97c39e162
+mon_initial_members = node1, node2, node3					monitor主机
+mon_host = 192.168.4.11,192.168.4.12,192.168.4.13			
+auth_cluster_required = cephx									表示需要密码,可以理解为/etc/passwd文件中的密码占位符x
+auth_service_required = cephx
+auth_client_required = cephx
+
+给所有节点安装ceph相关软件包。
+ceph-cluster]# for i in node1 node2 node3
+do
+    ssh  $i "yum -y install ceph-mon ceph-osd ceph-mds ceph-radosgw"
+done
+ 
+初始化所有节点的mon服务，也就是启动mon服务（主机名解析必须对）。
+ceph-deploy mon create-initial
+
+常见错误及解决方法（非必要操作，有错误可以参考）：
+如果提示如下错误信息：
+[node1][ERROR ] admin_socket: exception getting command descriptions: [Error 2] No such file or directory
+解决方案如下（在node1操作）：
+先检查自己的命令是否是在ceph-cluster目录下执行的！！！！如果确认是在该目录下执行的create-initial命令，依然报错，可以使用如下方式修复。
+vim ceph.conf      #文件最后追加以下内容
+public_network = 192.168.4.0/24
+修改后重新推送配置文件:
+ceph-deploy --overwrite-conf config push node1 node2 node3
+
+创建OSD
+备注：vdb1和vdb2这两个分区用来做存储服务器的journal缓存盘。
+for i in node1 node2 node3
+do
+     ssh $i "parted /dev/vdb mklabel gpt"
+     ssh $i "parted /dev/vdb mkpart primary 1 50%"
+     ssh $i "parted /dev/vdb mkpart primary 50% 100%"
+ done
+磁盘分区后的默认权限无法让ceph软件对其进行读写操作，需要修改权限。
+node1、node2、node3都需要操作，这里以node1为例。
+chown  ceph.ceph  /dev/vdb1
+chown  ceph.ceph  /dev/vdb2
+#上面的权限修改为临时操作，重启计算机后，权限会再次被重置。
+#我们还需要将规则写到配置文件实现永久有效。
+#规则：如果设备名称为/dev/vdb1则设备文件的所有者和所属组都设置为ceph。
+#规则：如果设备名称为/dev/vdb2则设备文件的所有者和所属组都设置为ceph。
+vim /etc/udev/rules.d/70-vdb.rules
+ENV{DEVNAME}=="/dev/vdb1",OWNER="ceph",GROUP="ceph"
+ENV{DEVNAME}=="/dev/vdb2",OWNER="ceph",GROUP="ceph"
+
+初始化清空磁盘数据（仅node1操作即可）。
+ceph-deploy disk  zap  node1:vdc   node1:vdd    
+ceph-deploy disk  zap  node2:vdc   node2:vdd
+ceph-deploy disk  zap  node3:vdc   node3:vdd
+  
+创建OSD存储空间（仅node1操作即可）
+重要：很多同学在这里会出错！将主机名、设备名称输入错误！！！
+ceph-deploy osd create node1:vdc:/dev/vdb1 node1:vdd:/dev/vdb2  
+//创建osd存储设备，vdc为集群提供存储空间，vdb1提供JOURNAL缓存，
+//一个存储设备对应一个缓存设备，缓存需要SSD，不需要很大
+ceph-deploy osd create node2:vdc:/dev/vdb1 node2:vdd:/dev/vdb2
+ceph-deploy osd create node3:vdc:/dev/vdb1 node3:vdd:/dev/vdb2 
+常见错误及解决方法（非必须操作）。
+使用osd create创建OSD存储空间时，如提示下面的错误提示：
+[ceph_deploy][ERROR ] RuntimeError: bootstrap-osd keyring not found; run 'gatherkeys'
+可以使用如下命令修复文件，重新配置ceph的密钥文件：
+ceph-deploy gatherkeys node1 node2 node3 
+
+注意:以上操作都需要在ceph-cluster下进行,ceph-cluster目录由自己手动创建,名称随意
+
+验证测试
+1) 查看集群状态。
+ceph  -s
+
+ceph osd tree			查看所有osd
+2）常见错误（非必须操作）。
+如果查看状态包含如下信息：
+health: HEALTH_WARN
+        clock skew detected on  node2, node3…  
+clock skew表示时间不同步，解决办法：请先将所有主机的时间都使用NTP时间同步！！！
+Ceph要求所有主机时差不能超过0.05s，否则就会提示WARN，如果使用NTP还不能精确同步时间，可以手动修改所有主机的ceph.conf，在[MON]下面添加如下一行：
+mon clock drift allowed = 1
+如果状态还是失败，可以尝试执行如下命令，重启ceph服务：
+systemctl restart ceph\*.service ceph\*.target
+
+
+
+
+
+
+
+
+
+
+对比:	存储池--->创建镜像
+		逻辑卷组--->逻辑卷
+
+Ceph块存储					注意:块存储多个客户端访问同一个镜像时不能同时写
+ceph osd lspools			查看存储池
+
+创建镜像
+rbd create demo-image --image-feature  layering --size 10G			不指定存储池,默认
+rbd create rbd/image --image-feature  layering --size 10G			指定存储池为rbd
+#这里的demo-image和image为创建的镜像名称，可以为任意字符。
+#--image-feature参数指定我们创建的镜像有哪些功能，layering是开启COW功能。
+#提示：ceph镜像支持很多功能，但很多是操作系统不支持的，我们只开启layering。
+rbd list
+rbd info demo-image
+
+
+rbd resize --size 7G image --allow-shrink				缩小容量		注意:容易造成数据丢失
+[root@node1 ~]# rbd resize --size 15G image				扩容容量
+
+
+
+客户端client通过KRBD访问
+yum -y  install ceph-common				安装ceph-common软件包
+scp 192.168.4.11:/etc/ceph/ceph.conf  /etc/ceph/						拷贝配置文件（否则不知道集群在哪）
+scp 192.168.4.11:/etc/ceph/ceph.client.admin.keyring /etc/ceph/		拷贝连接密钥（否则无连接权限）
+
+rbd map image						访问镜像
+rbd showmapped						查看
+
+
+mkfs.xfs /dev/rbd0					如果镜像尚未格式化,则需要格式化
+mount /dev/rbd0 /mnt/				挂载镜像
+
+node1创建镜像快照
+rbd snap ls image									查看镜像快照
+rbd snap create image --snap image-snap1			创建镜像快照image-snap1
+rbd snap rollback image --snap image-snap1		还原快照
+
+客户端重新挂载分区
+umount /mnt
+mount /dev/rbd0 /mnt/
+
+
+克隆快照
+rbd snap protect image --snap image-snap1
+rbd snap rm image --snap image-snap1							可能会失败
+rbd clone image --snap image-snap1 image-clone --image-feature layering
+//使用image的快照image-snap1克隆一个新的名称为image-clone镜像
+2）查看克隆镜像与父镜像快照的关系
+[root@node1 ~]#  rbd info image-clone
+rbd image 'image-clone':
+    size 15360 MB in 3840 objects
+    order 22 (4096 kB objects)
+    block_name_prefix: rbd_data.d3f53d1b58ba
+    format: 2
+    features: layering
+    flags: 
+    parent: rbd/image@image-snap1
+#克隆镜像很多数据都来自于快照链
+#如果希望克隆镜像可以独立工作，就需要将父快照中的数据，全部拷贝一份，但比较耗时！！！
+[root@node1 ~]#  rbd flatten image-clone
+[root@node1 ~]#  rbd info image-clone
+rbd image 'image-clone':
+    size 15360 MB in 3840 objects
+    order 22 (4096 kB objects)
+    block_name_prefix: rbd_data.d3f53d1b58ba
+    format: 2
+    features: layering
+    flags: 
+#注意，父快照信息没了！
+[root@node1 ~]#  rbd snap unprotect image --snap image-snap1     #取消快照保护
+[root@node1 ~]#  rbd snap rm image --snap image-snap1            #可以删除快照
+步骤四：其他操作
+
+1） 客户端撤销磁盘映射
+[root@client ~]# umount /mnt
+[root@client ~]# rbd showmapped
+id pool image        snap device    
+0  rbd  image        -    /dev/rbd0
+//语法格式:
+[root@client ~]# rbd unmap /dev/rbd0
+
+
+创建KVM虚拟机（注意：这里使用真实机当客户端！！！）。
+使用virt-manager创建2台普通的KVM虚拟机。
+4）配置libvirt secret（注意：这里使用真实机当客户端！！！）。
+编写账户信息文件，让KVM知道ceph的账户名称。
+[root@room9pc01 ~]# vim secret.xml            //新建临时文件，内容如下 
+<secret ephemeral='no' private='no'>
+        <usage type='ceph'>
+                <name>client.admin secret</name>
+        </usage>
+</secret>
+#使用XML配置文件创建secret
+[root@room9pc01 ~]# virsh secret-define secret.xml
+733f0fd1-e3d6-4c25-a69f-6681fc19802b       
+//随机的UUID，这个UUID对应的有账户信息
+给secret绑定admin账户的密码，密码参考ceph.client.admin.keyring文件。
+[root@room9pc01] virsh secret-set-value \
+--secret 733f0fd1-e3d6-4c25-a69f-6681fc19802b \
+--base64 AQBTsdRapUxBKRAANXtteNUyoEmQHveb75bISg==
+//这里secret后面是之前创建的secret的UUID
+//base64后面是client.admin账户的密码
+//现在secret中既有账户信息又有密钥信息
+6）虚拟机的XML配置文件。
+每个虚拟机都会有一个XML配置文件，包括：
+虚拟机的名称、内存、CPU、磁盘、网卡等信息。
+[root@room9pc01 ~]# vim /etc/libvirt/qemu/vm1.xml
+//修改前内容如下
+<disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/var/lib/libvirt/images/vm1.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+    </disk>
+不推荐直接使用vim修改配置文件，推荐使用virsh edit修改配置文件，效果如下：
+[root@room9pc01] virsh edit vm1                //vm1为虚拟机名称
+<disk type='network' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <auth username='admin'> 
+      <secret type='ceph' uuid='733f0fd1-e3d6-4c25-a69f-6681fc19802b'/>
+      </auth>
+      <source protocol='rbd' name='rbd/vm1-image'>          <host name='192.168.4.11' port='6789'/>     </source>
+    <target dev='vda' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x09' slot='0x08' function='0x0'/>
+ </disk>
+注意：如果有设备编号冲突的情况下，需要修改设备编号，任意修改一个数字即可

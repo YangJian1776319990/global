@@ -1,0 +1,78 @@
+一, 虚拟化概述
+virtualization 资源管理
+x个物理资源 --> y个逻辑资源
+实现程度:完全、部分、硬件辅助(CPU)
+
+使用虚拟化功能,需要CPU支持虚拟化功能
+CPU支持虚拟化功能,有可能关闭
+ 开启----->BIOS中进行开启
+
+虚拟化主要厂商及产品
+VMware 		VMware Workstation、vSphere
+Microsoft 	VirtualPC、Hyper-V
+RedHat 		KVM、RHEV
+Citrix 		Xen
+Oracle 		Oracle VM VirtualBox
+
+主要软件包
+qemu-kvm						:为 kvm 提供底层仿真支持
+libvirt-daemon					:libvirtd 守护进程,管理虚拟机
+libvirt-client					:用户端软件,提供客户端管理命令
+libvirt-daemon-driver-qemu		:libvirtd 连接 qemu 的驱动
+virt-manager					:图形管理工具
+
+服务:libvirtd
+[root@svr7 ~]# LANG=en  virt-manager   以英文开启该工具(虚拟机不支持中文)
+
+
+控制虚拟机A				virsh console A
+查看kvm节点(服务器)信息		virsh nodeinfo
+列出正在运行的虚拟机		virsh list
+列出所有的虚拟机			virsh list --all
+列出活跃的虚拟网络			virsh net-list
+列出所有的虚拟网络			virsh net-list --all
+查看虚拟机A信息			virsh dominfo A 
+设置虚拟机A开机自启		virsh autostart A
+取消设置虚拟机A开机自启		virsh autostart --disable A
+运行|重启|关闭虚拟机A		virsh start|reboot|shutdown A
+强制关闭虚拟机A			virsh destroy A
+查看虚拟机Axml配置文件		virsh dumpxml A
+备份虚拟机Axml配置文件		virsh dumpxml A > 路径/文件名.xml
+导入虚拟机信息			virsh define 路径/文件名.xml [默认路径下创建xml文件]
+删除虚拟机A				virsh undefine A [删除 "默认" 路径下的xml文件,保留磁盘文件]
+导出修改导入虚拟机Axml文件	virsh edit A	[三合一]
+
+
+KVM虚拟机的组成
+xml配置文件(虚拟机配置文件):   定义虚拟机的名称、UUID、CPU、内
+存、虚拟磁盘、网卡等各种参数设置
+存放位置:/etc/libvirt/qemu/
+
+磁盘镜像文件:保存虚拟机的操作系统及文档数据,
+镜像路径取决于xml配置文件中的定义
+默认位置:/var/lib/libvirt/images/
+文件类型：qcow2 raw
+
+虚拟机名称
+UUID
+虚拟磁盘文件路径
+网卡唯一编号(MAC地址)  :
+
+
+
+
+
+二, COW技术原理  [Copy On Write]
+前端盘直接映射原始盘的数据内容
+当前端盘的旧数据有修改时,在修改之前自动将旧数据存入前端盘
+对前端盘的修改不回写到原始
+
+前端盘大小最好大于原始盘, 基于原始盘制作出前端盘后,原始盘不能做任何改变
+
+qemu-img create -f qcow2 -b 后端盘 前端盘
+-f:指定文件类型
+-b:指定后端盘
+
+查看磁盘文件的信息						qemu-img info   磁盘文件    
+快速产生一个任意大小的磁盘文件,内容为空	qemu-img create  磁盘文件   
+离线访问虚拟机的磁盘文件内容				guestmount  -a  虚拟机磁盘路径   -i  /挂载点

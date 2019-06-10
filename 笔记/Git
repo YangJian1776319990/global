@@ -1,0 +1,280 @@
+版本控制软件服务器共享文件夹
+可以随意修改
+cvs,subversion(svn),git(最新)
+
+
+YUM安装Git软件。
+yum -y install git
+git --version					//查看版本
+
+2)初始化一个空仓库。
+mkdir /var/git					//创建一个普通目录
+git init /var/git/project --bare 		//创建一个空仓库
+
+客户机:
+clone克隆服务器仓库到本地。
+yum -y install git
+git clone root@192.168.2.100:/var/git/project 
+[root@web2 ~]# cd project				//工作区
+ls -A
+.git									//真正的git仓库
+
+
+ 修改git配置。
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+cat ~/.gitconfig(将自动产生一个/root/.gitconfig文件)
+[user]
+    email = you@example.com
+    name = Your Name
+
+3） 本地工作区对数据进行增删改查(必须要先进入仓库再操作数据)。
+echo "init date" > init.txt
+mkdir demo
+cp /etc/hosts demo
+
+4） 查看仓库中数据的状态。
+git status
+# 位于分支 master
+#
+# 初始提交
+#
+# 未跟踪的文件:
+#   （使用 "git add <file>..." 以包含要提交的内容）
+#
+#	init.txt
+提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
+
+
+5） 将工作区的修改提交到暂存区。
+git add .(代表当前)
+git status
+位于分支 master
+#
+# 初始提交
+#
+# 要提交的变更：
+#   （使用 "git rm --cached <file>..." 撤出暂存区）
+#
+#	新文件：    demo/haha
+#	新文件：    init.txt
+
+6) 将暂存区修改提交到本地仓库。
+git commit  -m  "注释，可以为任意字符"
+git status
+# 位于分支 master
+无文件要提交，干净的工作区
+
+7） 将本地仓库中的数据推送到远程服务器(web2将数据推送到web1)。
+git config --global push.default simple   //这个命令不需要记,输入git push会有提示,输入密码时按ctrl+c中断退出
+
+git push
+root@192.168.2.100's password:  输入服务器root密码
+git status
+
+8) 将服务器上的数据更新到本地（web1的数据更新到web2）。
+备注：可能其他人也在修改数据并提交服务器，就会导致自己的本地数据为旧数据，使用pull就可以将服务器上新的数据更新到本地。
+git pull
+
+9) 查看版本日志。
+git log
+git log --pretty=oneline
+git log --oneline
+git reflog
+备注：客户端也可以使用图形程序访问服务器。
+Windows需要安装git和tortoiseGit
+
+
+移动HEAD指针，将数据还原到任意版本。
+[root@web2 project]# git reset --hard 301c0
+[root@web2 project]# git reflog
+301c090 HEAD@{0}: reset: moving to 301c0
+04ddc0f HEAD@{1}: commit: num.txt:789
+7bba57b HEAD@{2}: commit: num.txt:456
+301c090 HEAD@{3}: commit: num.txt:123
+b427164 HEAD@{5}: commit: new.txt:third
+0584949 HEAD@{6}: commit: new.txt:second
+ece2dfd HEAD@{7}: commit: new.txt:first line
+e1112ac HEAD@{8}: commit: add new.txt
+1a0d908 HEAD@{9}: commit (initial): 初始化
+
+git reset --hard 7bba57b		//移动指针,回到历史版本
+
+git reflog                #查看指针移动历史
+7bba57b HEAD@{0}: reset: moving to 7bba57b
+301c090 HEAD@{1}: reset: moving to 301c0
+… …
+[root@web2 project]# git reset --hard 04ddc0f    #恢复num.txt的所有数据
+
+
+Git分支操作
+常见的分支规范如下：
+MASTER分支（MASTER是主分支，是代码的核心）。
+DEVELOP分支（DEVELOP最新开发成果的分支）。
+RELEASE分支（为发布新产品设置的分支）。
+HOTFIX分支（为了修复软件BUG缺陷的分支）。
+FEATURE分支（为开发新功能设置的分支）。
+
+查看当前分支。
+git status
+# On branch master
+nothing to commit, working directory clean
+
+git branch -v
+* master 0dc2b76 delete init.txt
+
+2）创建分支。
+git branch hotfix
+git branch feature
+git branch -v
+  feature 0dc2b76 delete init.txt
+  hotfix  0dc2b76 delete init.txt
+* master  0dc2b76 delete init.txt
+
+
+步骤二：切换与合并分支
+
+1）切换分支。
+git checkout hotfix
+git branch -v
+  feature 0dc2b76 delete init.txt
+* hotfix  0dc2b76 delete init.txt
+master  0dc2b76 delete init.txt
+
+2）在新的分支上可以继续进行数据操作（增、删、改、查）。
+echo "fix a bug" >> new.txt
+git add .
+git commit -m "fix a bug"
+
+3）将hotfix修改的数据合并到master分支。
+注意，合并前必须要先切换到master分支，然后再执行merge命令。
+git checkout master
+cat new.txt        #默认master分支中没有hotfix分支中的数据
+git merge hotfix
+Updating 0dc2b76..5b4a755
+Fast-forward
+ new.txt | 1 ++
+ 1 file changed, 1 insertions(+)
+
+4）将所有本地修改提交远程服务器。
+[root@web2 project]# git push
+
+
+
+步骤二：解决版本分支的冲突问题
+
+1）在不同分支中修改相同文件的相同行数据，模拟数据冲突。
+[root@web2 project]# git checkout hotfix
+[root@web2 project]# echo "AAA" > a.txt
+[root@web2 project]# git add .
+[root@web2 project]# git commit -m "add a.txt by hotfix"
+[root@web2 project]# echo "BBB" > a.txt
+[root@web2 project]# git add .
+[root@web2 project]# git commit -m "add a.txt by master"
+自动合并 a.txt
+冲突（添加/添加）：合并冲突于 a.txt
+自动合并失败，修正冲突然后提交修正的结果。
+2）查看有冲突的文件内容，修改文件为最终版本的数据，解决冲突。
+[root@web2 project]# cat a.txt                #该文件中包含有冲突的内容
+<<<<<<< HEAD
+BBB
+=======
+AAA
+>>>>>>> hotfix
+[root@web2 project]# vim a.txt              #修改该文件，为最终需要的数据，解决冲突
+BBB
+[root@web2 project]# git add .
+[root@web2 project]# git commit -m "resolved"
+总结：分支指针与HEAD指针的关系。
+创建分支的本质是在当前提交上创建一个可以移动的指针
+如何判断当前分支呢？答案是根据HEAD这个特殊指针
+
+
+
+解决版本分支的冲突问题
+
+1）在不同分支中修改相同文件的相同行数据，模拟数据冲突。
+git checkout hotfix
+echo "AAA" > a.txt
+git add .
+git commit -m "add a.txt by hotfix"
+
+"BBB" > a.txt
+git add .
+git commit -m "add a.txt by master"
+自动合并 a.txt
+冲突（添加/添加）：合并冲突于 a.txt
+自动合并失败，修正冲突然后提交修正的结果。
+2）查看有冲突的文件内容，修改文件为最终版本的数据，解决冲突。
+cat a.txt                #该文件中包含有冲突的内容
+<<<<<<< HEAD
+BBB
+=======
+AAA
+>>>>>>> hotfix
+vim a.txt              #修改该文件，为最终需要的数据，解决冲突
+BBB
+git add .
+git commit -m "resolved"
+
+
+
+SSH协议服务器（支持读写操作）
+1）创建基于密码验证的SSH协议服务器。
+git init --bare /var/git/base_ssh
+Initialized empty Git repository in /var/git/base_ssh/
+
+2)客户端访问的方式。
+git clone root@192.168.2.100:/var/git/base_ssh
+rm -rf base_ssh
+
+3）客户端生成SSH密钥，实现免密码登陆git服务器（web2主机操作）。
+ssh-keygen -f /root/.ssh/id_rsa -N ''
+ssh-copy-id  192.168.2.100
+git clone root@192.168.2.100:/var/git
+git push
+
+
+
+步骤二：Git协议服务器（只读操作的服务器）
+
+1）安装git-daemon软件包（web1主机操作）。
+yum -y install git-daemon
+
+2）创建版本库（web1主机操作）。
+git init --bare /var/git/base_git
+Initialized empty Git repository in /var/git/base_git/
+
+3）修改配置文件，启动git服务（web1主机操作）。
+[root@web1 ~]# vim /usr/lib/systemd/system/git@.service
+修改前内容如下：
+ExecStart=-/usr/libexec/git-core/git-daemon --base-path=/var/lib/git 
+--export-all --user-path=public_git --syslog --inetd –verbose
+修改后内容如下：
+ExecStart=-/usr/libexec/git-core/git-daemon --base-path=/var/git 
+--export-all --user-path=public_git --syslog --inetd –verbose
+[root@web1 ~]# systemctl  start  git.socket
+
+4）客户端访问方式（web2主机操作）
+git clone git://192.168.2.100/base_git
+
+
+
+步骤三：HTTP协议服务器（只读操作的服务器）
+
+1）安装gitweb、httpd软件包（web1主机操作）。
+yum -y install httpd gitweb
+
+2）修改配置文件，设置仓库根目录（web1主机操作）。
+vim +11 /etc/gitweb.conf 
+$projectroot = "/var/git";                        #添加一行
+
+3) 创建版本仓库（web1主机操作）
+git init --bare /var/git/base_http
+4）启动httpd服务器
+systemctl start httpd
+
+5）客户端访问方式（web2主机操作）
+注意：调用虚拟机中的firefox浏览器，需要在远程时使用ssh -X 服务器IP，并且确保真实主机的firefox已经关闭。
+firefox http://192.168.2.100/git/
+

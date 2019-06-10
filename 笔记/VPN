@@ -1,0 +1,159 @@
+VPN:  Virtual Private Network (虚拟专用网络)
+
+操作难度:gre<pptp<ipsec
+安全方面:gre<pptp<ipsec
+gre不加密,windows不支持	pptp部分加密		ipsec全加密
+
+
+lsmod								显示模块列表
+lsmod  | grep ip_gre			1	确定是否加载了gre模块
+modprobe  ip_gre					加载模块ip_gre
+modinfo ip_gre						查看模块信息
+
+
+创建隧道
+ip tunnel add tun0  mode gre remote 201.1.2.5 local 201.1.2.10
+//ip tunnel add创建隧道（隧道名称为tun0），ip tunnel help可以查看帮助
+//mode设置隧道使用gre模式
+//local后面跟本机的IP地址，remote后面是与其他主机建立隧道的对方IP地址
+
+2）启用该隧道（类似与设置网卡up）
+ip link show
+ip link set tun0 up
+ip link show
+
+2）为VPN配置隧道IP地址
+ip addr add 10.10.10.10/24 peer 10.10.10.5/24 dev tun0
+//为隧道tun0设置本地IP地址（10.10.10.10/24）
+//隧道对面的主机IP的隧道IP为10.10.10.5/24
+ip a s                      //查看IP地址
+
+6）开启路由转发(软路由)
+echo "1" > /proc/sys/net/ipv4/ip_forward
+7)测试连通性
+[root@client ~]#  ping 10.10.10.5
+[root@proxy ~]#   ping 10.10.10.10
+
+
+
+PPTP VPN
+linux配置:
+yum localinstall pptpd-1.4.0-2.el7.x86_64.rpm
+rpm -qc pptpd
+/etc/ppp/options.pptpd
+/etc/pptpd.conf
+/etc/sysconfig/pptpd
+
+2)修改配置文件
+vim /etc/pptpd.conf
+.. ..
+localip 201.1.2.5                                    //服务器本地IP
+remoteip 192.168.3.1-50                            //分配给客户端的IP池
+
+vim /etc/ppp/options.pptpd
+require-mppe-128                                    //使用MPPE加密数据
+ms-dns 8.8.8.8  			                            //DNS服务器
+
+vim /etc/ppp/chap-secrets            //修改账户配置文件
+jacob           *               123456      *
+//用户名    服务器标记    密码    客户端
+
+
+3）启动服务
+systemctl start pptpd
+systemctl enable pptpd
+
+4）翻墙设置（非必需操作）
+iptables -t nat -A POSTROUTING -s 192.168.3.0/24 -j SNAT --to-source 201.1.2.5
+
+
+windows设置:
+右键网络------设置新的连接或网络------连接到工作区------使用我的internet连接------我将稍后设置Internet连接------输入目标地址------输入用户名和密码------确定
+
+
+
+
+
+创建L2TP+IPSec VPN
+linux配置:
+
+部署IPSec服务
+yum -y install libreswan							安装软件包
+
+2)新建IPSec密钥验证配置文件
+cat /etc/ipsec.conf                //仅查看一下该主配置文件
+.. ..
+include /etc/ipsec.d/*.conf                    //加载该目录下的所有配置文件
+
+vim /etc/ipsec.d/myipsec.conf            //新建该文件，参考lnmp_soft/vpn/myipsec.conf    
+conn IDC-PSK-NAT
+    rightsubnet=vhost:%priv                        //允许建立的VPN虚拟网络
+    also=IDC-PSK-noNAT
+conn IDC-PSK-noNAT
+    authby=secret                                    //加密认证
+        ike=3des-sha1;modp1024                        //算法
+        phase2alg=aes256-sha1;modp2048                //算法
+    pfs=no
+    auto=add
+    keyingtries=3
+    rekey=no
+    ikelifetime=8h
+    keylife=3h
+    type=transport
+    left=201.1.2.10                                //重要，服务器本机的外网IP
+    leftprotoport=17/1701
+    right=%any                                    //允许任何客户端连接
+    rightprotoport=17/%any
+
+3)创建IPSec预定义共享密钥
+cat /etc/ipsec.secrets                 //仅查看，不要修改该文件
+include /etc/ipsec.d/*.secrets
+
+vim /etc/ipsec.d/mypass.secrets        //新建该文件
+201.1.2.10   %any:    PSK    "randpass"             //randpass为预共享密钥
+                                                //201.1.2.10是VPN服务器的IP
+
+4)启动IPSec服务
+systemctl start ipsec        
+netstat -ntulp |grep pluto
+udp        0      0 127.0.0.1:4500          0.0.0.0:*           3148/pluto          
+udp        0      0 192.168.4.10:4500      0.0.0.0:*           3148/pluto          
+udp        0      0 201.1.2.10:4500         0.0.0.0:*           3148/pluto          
+udp        0      0 127.0.0.1:500           0.0.0.0:*           3148/pluto          
+udp        0      0 192.168.4.10:500       0.0.0.0:*           3148/pluto          
+udp        0      0 201.1.2.10:500          0.0.0.0:*           3148/pluto          
+udp6       0      0 ::1:500                 :::*                 3148/pluto
+
+步骤二：部署XL2TP服务
+1）安装软件包（软件包参考lnmp_soft）
+yum localinstall xl2tpd-1.3.8-2.el7.x86_64.rpm
+
+2) 修改xl2tp配置文件（修改3个配置文件的内容）
+vim  /etc/xl2tpd/xl2tpd.conf                //修改主配置文件
+[global]
+.. ..    
+[lns default]
+.. ..
+ip range = 192.168.3.128-192.168.3.254                    //分配给客户端的IP池
+local ip = 201.1.2.10                                    //VPN服务器的IP地址
+
+vim /etc/ppp/options.xl2tpd            //认证配置
+require-mschap-v2                                         //添加一行，强制要求认证
+#crtscts                                                //注释或删除该行
+#lock                                                //注释或删除该行
+
+vim /etc/ppp/chap-secrets                    //修改密码文件
+jacob   *       123456  *                //账户名称   服务器标记   密码   客户端IP
+
+3）启动服务
+systemctl start xl2tpd
+netstat  -ntulp |grep xl2tpd        
+udp     0      0 0.0.0.0:1701      0.0.0.0:*          3580/xl2tpd
+
+4）设置路由转发，防火墙
+echo "1" > /proc/sys/net/ipv4/ip_forward
+firewall-cmd --set-default-zone=trusted
+
+5）翻墙设置（非必需操作）
+iptables -t nat -A POSTROUTING -s 192.168.3.0/24 -j SNAT --to-source 201.1.2.10
+

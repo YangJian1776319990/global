@@ -1,0 +1,94 @@
+
+集群
+集群分类:
+高性能计算集群HPC－－－通过集群开发的并行应用程序,解决复杂的科学问题
+负载均衡(LB)集群 －－－客户端负载在计算机集群中尽可能平均分摊
+高可用(HA)集群－－－避免单点故障，当一个系统发生故障时，可以快速迁移
+
+
+LVS:(集成在内核)
+lc			不支持权重
+wrr			支持权重
+
+程序包：ipvsadm
+同一台服务器可以创建多个集群
+1)
+ipvsadm -A -t 192.168.4.5:80 -s wrr				创建LVS虚拟集群服务器										
+
+2）为集群添加若干real server
+ipvsadm -a -t 192.168.4.5:80 -r 192.168.2.100 -m -w 1	-m表示nat模式,-g表示DR模式-w表示权重,-t表示tcp,-u表示udp
+
+3）修改集群服务器设置
+ipvsadm -E -t 192.168.4.5:80 -s rr		修改调度器算法，将加权轮询修改为轮询
+
+4）修改read server
+ipvsadm -e -t 192.168.4.5:80 -r 192.168.2.202 -g		使用-g选项，将模式改为DR模式
+ipvsadm -e -t 192.168.4.5:80 -r 192.168.2.100:80 -w 2	修改权重
+
+5）查看LVS状态
+ipvsadm -Ln				查看LVS规则表,n表示以数字的形式表示
+
+6）创建另一个集群（算法为最少连接算法；使用-m选项，设置工作模式为NAT模式）
+ipvsadm -A -t 192.168.4.5:3306 -s lc
+ipvsadm -a -t 192.168.4.5:3306 -r 192.168.2.100 -m
+ipvsadm -a -t 192.168.4.5:3306 -r 192.168.2.200 -m
+
+6）永久保存所有规则
+ipvsadm-save -n > /etc/sysconfig/ipvsadm
+
+7）清空所有规则
+ipvsadm -C
+
+/etc/sysctl.conf
+/usr/lib/sysctl.d/		/run/sysctl.d/		/etc/sysctl.d/
+net.ipv4.conf.a=
+
+
+
+
+配置网卡的虚拟接口
+cd /etc/sysconfig/network-scripts/
+cp ifcfg-eth0{,:0}
+
+vim ifcfg-eth0:0
+
+TYPE=Ethernet
+BOOTPROTO=none
+NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+IPADDR=192.168.4.5
+PREFIX=24
+
+
+
+
+cp ifcfg-lo ifcfg-lo:0
+vim ifcfg-lo:0
+
+DEVICE=lo:0				//设备名
+IPADDR=192.168.4.15		//ip地址
+NETMASK=255.255.255.255	//掩码
+NETWORK=192.168.4.15
+BROADCAST=192.168.4.15	//广播地址
+ONBOOT=yes
+NAME=lo:0					
+
+
+
+防止地址冲突的问题：
+ip地址相同,默认肯定会出现地址冲突；
+。
+/etc/sysctl.conf
+
+net.ipv4.conf.all.arp_ignore = 1
+net.ipv4.conf.lo.arp_ignore = 1
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_announce = 2
+#当有arp广播问谁是192.168.4.15时，本机忽略该ARP广播，不做任何回应
+#本机不要向外宣告自己的lo回环地址是192.168.4.15
+sysctl -p
+systemctl restart network
+
+性能: nginx<LVS
+功能: nginx>LVS

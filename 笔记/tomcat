@@ -1,0 +1,84 @@
+tomcat每次启动都需要读取足够多的随机数据(为了更安全)(内存中随机数据越多,启动越快,从dev/random(默认读取) /dev/urandom`中读取)
+
+如果检查端口时，8005端口启动非常慢，可用使用下面的命令用urandom替换random（非必须操作）。
+mv /dev/random  /dev/random.bak
+ln -s /dev/urandom  /dev/random
+
+配置文件: /usr/local/tomcat/conf/server.xml
+<Server>
+   <Service>
+     <Connector port=8080 />
+     <Connector port=8009 />
+     <Engine name="Catalina" defaultHost="localhost">
+
+<Host name="www.a.com"  appBase="a" unpackWARs="true" autoDeploy="true">
+	<Context path="" docBase="base"/>			//修改根路径为a/base
+	  <Context path="/test" docBase="/var/www/html/"/> 		//访问www.a.com:8080/test显示/var/www/html下的页面
+</Host>
+
+配置Tomcat支持SSL加密网站
+1）创建加密用的私钥和证书文件
+keytool -genkeypair -alias tomcat -keyalg RSA -keystore /usr/local/tomcat/keystore
+
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+keystoreFile="/usr/local/tomcat/keystore" keystorePass="123456" clientAuth="false" sslProtocol="TLS" />
+
+日志   
+catalina.2019-05-23.log				//软件日志,起服务,关服务,错误日志  
+localhost_access_log.2019-05-23.txt	//访问日志
+
+<Host name="www.a.com" appBase="a" unpackWARS="true" autoDeploy="true">
+<Context path="/test" docBase="/var/www/html/" />
+#从默认localhost虚拟主机中把Valve这段复制过来，适当修改下即可
+<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+prefix=" a_access" 	//日志文件名
+suffix=".txt"			//日志扩展名,程序会自动在文件名和扩展名之间添加日期
+pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+</Host>
+
+
+
+
+
+
+
+
+
+
+CDN(content delivery network)内容分发网络
+
+yum -y install gcc readline-devel    
+yum -y install ncurses-devel     //安装readline-devel时ncurses-devel将会作为依赖包被安装
+yum -y install pcre-devel            
+yum -y install python-docutils         
+useradd -s /sbin/nologin varnish
+tar -xf varnish-5.2.1.tar.gz
+cd varnish-5.2.1
+./configure
+make && make install
+
+varnish-5.2.1]#cp  etc/example.vcl   /usr/local/etc/default.vcl
+3）修改代理配置文件
+vim  /usr/local/etc/default.vcl
+backend default {
+     .host = "192.168.2.100";
+     .port = "80";
+ }
+4）启动服务
+varnishd  -f /usr/local/etc/default.vcl
+//varnishd命令的其他选项说明如下：
+//varnishd -s malloc,128M        定义varnish使用内存作为缓存，空间为128M
+//varnishd -s file,/var/lib/varnish_storage.bin,1G 定义varnish使用文件作为缓存
+步骤三：客户端测试
+
+1）客户端开启浏览器访问
+curl http://192.168.4.5
+
+varnishlog					//查看详细日志
+varnishncsa               //查看简单日志
+
+[root@proxy ~]# varnishadm  
+varnish> ban req.url ~ .*				//清空缓存数据，支持正则表达式
+
+

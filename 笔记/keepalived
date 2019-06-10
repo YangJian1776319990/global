@@ -1,0 +1,126 @@
+Keepalived高可用服务器
+yum install -y keepalived
+
+修改Keepalived配置文件: /etc/keepalived/keepalived.conf
+global_defs {
+  notification_email {
+    admin@tarena.com.cn						设置报警收件人邮箱
+  }
+  notification_email_from ka@localhost		设置发件人
+  smtp_server 127.0.0.1						定义邮件服务器
+  smtp_connect_timeout 30
+  router_id  web1								设置路由ID号（实验需要修改）
+}
+vrrp_instance VI_1 {
+  state MASTER									主服务器为MASTER（备服务器需要修改为BACKUP）
+  interface eth0								定义网络接口
+  virtual_router_id 51						主备服务器VRID号必须一致
+  priority 100									服务器优先级,优先级高优先获取VIP（实验需要修改）
+  advert_int 1
+  authentication {
+    auth_type pass
+    auth_pass 1111								主备服务器密码必须一致
+  }
+  virtual_ipaddress {							谁是主服务器谁获得该VIP（实验需要修改）
+192.168.4.80 
+}    
+}
+
+systemctl start keepalived					启动服务
+
+启动keepalived会自动添加一个drop的防火墙规则，需要清空！
+iptables -F
+
+ip addr show									查看VIP信息
+
+Keepalived+LVS服务器
+
+部署Keepalived实现LVS-DR模式调度器的高可用
+1）LVS1调度器设置Keepalived，并启动服务
+/etc/keepalived/keepalived.conf
+
+virtual_server 192.168.4.15 80 {           //设置ipvsadm的VIP规则（实验需要修改）
+  delay_loop 6
+  lb_algo wrr                          //设置LVS调度算法为WRR
+  lb_kind DR                               //设置LVS的模式为DR
+  #persistence_timeout 50
+#注意这样的作用是保持连接，开启后，客户端在一定时间内始终访问相同服务器
+  protocol TCP
+  real_server 192.168.4.100 80 {         //设置后端web服务器真实IP（实验需要修改）
+    weight 1                             //设置权重为1
+    TCP_CHECK {                            //对后台real_server做健康检查
+    connect_timeout 3
+    nb_get_retry 3
+    delay_before_retry 3
+    }
+  }
+ real_server 192.168.4.200 80 {       //设置后端web服务器真实IP（实验需要修改）
+    weight 2                          //设置权重为2
+    TCP_CHECK {
+    connect_timeout 3					//连接超时,连接超过三秒,则视为一次不通
+    nb_get_retry 3						//连接次数,超过规定次数,则视为不通,将移除节点
+    delay_before_retry 3				//测试连接时间,每3秒测试一次
+    }
+  }
+}
+
+3 案例3：配置HAProxy负载平衡集群
+
+部署HAProxy服务器
+yum -y install haproxy								配置网络，安装软件
+
+修改配置文件: /etc/haproxy/haproxy.cfg
+global
+ log 127.0.0.1 local2										[err warning info debug]
+ chroot /usr/local/haproxy
+ pidfile /var/run/haproxy.pid								haproxy的pid存放路径
+ maxconn 4000												所有集群总并发量
+ user haproxy
+ group haproxy
+ daemon													创建1个进程进入deamon模式运行
+defaults
+ mode http													默认的模式mode { tcp|http|health } log global			采用全局定义的日志
+ option dontlognull										不记录健康检查的日志信息
+ option httpclose											每次请求完毕后主动关闭http通道
+ option httplog											日志类别http日志格式
+ option forwardfor											后端服务器可以从Http Header中获得客户端ip
+ option redispatch											serverid服务器挂掉后强制定向到其他健康服务器
+ timeout connect 10000									如果backend没有指定，默认为10s
+ timeout client 300000									客户端连接超时
+ timeout server 300000									服务器连接超时
+ maxconn  60000											单个集群最大并发量
+ retries  3												3次连接失败就认为服务不可用，也可以通过后面设置
+
+格式1
+listen stats 0.0.0.0:1080									监听端口
+    stats refresh 30s										统计页面自动刷新时间
+    stats uri /stats										统计页面url
+    stats realm Haproxy Manager							进入管理解面查看状态信息
+    stats auth admin:admin								统计页面用户名和密码设置
+  #stats hide-version										隐藏统计页面上HAProxy的版本信息
+listen  websrv-rewrite 0.0.0.0:80
+   balance roundrobin
+   server  web1 192.168.2.100:80 check inter 2000(毫秒) rise 2 fall 5			每2000毫秒(2秒)一次健康检查,连接5次失败视为失败,
+   server  web2 192.168.2.200:80 check inter 2000 rise 2 fall 5
+
+格式2
+frontend  main *:80
+    use_backend static
+backend static
+    balance     roundrobin
+    server      static 127.0.0.1:4331 check
+
+启动服务器并设置开机启动
+systemctl start haproxy
+systemctl enable haproxy
+
+
+备注：
+Queue队列数据的信息（当前队列数量，最大值，队列限制数量）；
+Session rate每秒会话率（当前值，最大值，限制数量）；
+Sessions总会话量（当前值，最大值，总量，Lbtot: total number of times a server was selected选中一台服务器所用的总时间）；
+Bytes（入站、出站流量）；
+Denied（拒绝请求、拒绝回应）；
+Errors（错误请求、错误连接、错误回应）；
+Warnings（重新尝试警告retry、重新连接redispatches）；
+Server(状态、最后检查的时间（多久前执行的最后一次检查）、权重、备份服务器数量、down机服务器数量、down机时长)。

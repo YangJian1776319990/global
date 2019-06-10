@@ -1,0 +1,110 @@
+用户和组
+用户基本信息存放在 /etc/passwd 文件（系统级配置文件）
+用户密码信息存放在 /etc/shadow 文件
+组基本信息存放在 /etc/group 文件
+root:x:0:0:root:/root:/bin/bash
+用户名:密码占位符:UID:基本组的GID:用户描述信息:家目录:解释器
+ stugrp:x:1610:
+  组名:组的密码占位符:组的GID编号:组的成员列表
+
+useradd					创建用户
+usermod					修改用户属性
+-u 用户id
+-d 家目录路径
+-s 登录解释器
+-G 附加组
+
+userdel					删除用户
+-r 同时删除家目录
+
+passwd 用户名			设置密码
+echo '密码'　　 | 　　passwd 　--stdin　 用户名
+
+groupadd				创建组
+-g 组id
+
+
+
+gpasswd -a 用户名 　组名			添加组成员
+gpasswd -d 用户名　 组名			删除组成员
+
+groupdel				删除组
+
+
+
+
+
+
+
+
+
+权限和归属
+基本权限		r w x
+权限适用对象(归属)	u g o
+
+匹配及停止
+ acl>所有者>所属组>其他人
+
+文本文件
+r: cat less head tail 
+w: vim 修改并且保存   重定向　>    >>
+x: 写Shell脚本
+
+目录:
+r:ls
+w:rm mv cp mkdir touch等
+x:cd
+
+chmod  归属关系+-=权限类别 　文档...
+-R 递归，目录本身及目录下所有
+
+chown [-R] 属主 文档...
+chown [-R] :属组 文档...
+chown [-R] 属主:属组 文档...
+
+附加权限（特殊权限）
+
+Set GID
+• 附加在属组的 x 位上
+– 属组的权限标识会变为 s
+– 适用于目录,Set GID可以使目录下新增的文档自动设
+置与父目录相同的属组
+– 继承所属组身份
+
+Set UID
+• 附加在属主的 x 位上
+– 属主的权限标识会变为 s
+– 适用于可执行文件,Set UID可以让使用者具有文件属
+主的身份及部分权限
+
+Sticky Bit
+• 附加在其他人的 x 位上
+– 其他人的权限标识会变为 t
+– 适用于开放 w 权限的目录,可以阻止用户滥用 w 写入
+权限(禁止操作别人的文档)
+
+权限的数值表示
+基本权限:r = 4,w = 2,x = 1
+附加权限:SUID = 4,SGID = 2,Sticky Bit = 1
+
+
+基本权限:	chmod [-R] nnn 文档...
+附加权限: chmod [-R] xnnn 文档...
+
+acl访问控制列表(ACL策略)
+acl策略的作用
+文档归属的局限性
+任何人只属于三种角色:属主、属组、其他人
+无法实现更精细的控制
+
+acl访问策略
+能够对个别用户、个别组设置独立的权限
+大多数挂载的EXT3/4、XFS文件系统默认已支持
+
+设置acl访问控制策略
+getfacl 文档...
+setfacl  -m u:用户名:权限类别 文档...
+setfacl  -m g:组名:权限类别 文档...
+setfacl  -b 文档...               #删除所有ACL策略
+setfacl  -x u:用户名   文档...      #删除单条指定ACL策略
+[-R]：递归设置ACL策略

@@ -1,0 +1,72 @@
+XE组件及过程分析
+1.DHCP服务,分配IP地址、定位引导程序
+2.TFTP服务,提供引导程序下载
+3.HTTP服务,提供yum安装源
+
+1.DHCP服务-->IP地址   next-server  filename
+2.tftp服务-->pxelinux.0
+3.pxelinux.0-->读取默认菜单文件
+4.default-->图形模块  背景图片  启动内核  驱动程序  应答文件
+5.ks.cfg应答文件--> 分区 语言  键盘类型   装包
+    
+
+1.dhcp服务
+程序:dhcp
+配置文件:/etc/dhcp/dhcpd.conf
+vim末行模式  :r  /usr/share/doc/dhcp*/dhcpd.conf.example
+
+subnet 192.168.4.0 netmask 255.255.255.0 {  #分配的网段
+  range 192.168.4.100  192.168.4.200;      #分配的IP范围
+  option domain-name-servers  192.168.4.7; #分配DNS服务器
+  option routers 192.168.4.254;            #分配网关地址
+  default-lease-time 600;
+  max-lease-time 7200;
+  next-server  192.168.4.7;   #指定下一个服务器地址
+  filename  "pxelinux.0";     #指定引导文件名称
+} 
+
+2.http服务
+程序:httpd
+mkdir /var/www/html/centos
+mount /dev/cdrom /var/www/html/centos
+
+3.tftp服务
+程序:tftp-server
+默认共享位置:/var/lib/tftpboot
+:pxelinux.0 vesamenu.c32(图形模块) splash.png(背景图片) vmlinuz(启动内核) initrd.img(驱动程序) pxelinux.cfg/default
+
+[root@svr7 /]# systemctl  restart  tftp
+
+pxelinux.0文件
+yum  provides  */pxelinux.0     #查询那个包产生,该文件
+yum -y install syslinux         
+rpm -ql syslinux | grep pxelinux.0  #查询软件包安装清单
+cp /usr/share/syslinux/pxelinux.0   /var/lib/tftpboot/
+
+pxelinux.0文件--->/var/lib/tftpboot/pxelinux.cfg/default
+
+mkdir /var/lib/tftpboot/pxelinux.cfg
+cp /var/www/html/centos/isolinux/isolinux.cfg /var/lib/tftpboot/pxelinux.cfg/defau
+
+修改菜单文件内容
+# vim /var/lib/tftpboot/pxelinux.cfg/default 
+
+  1 default vesamenu.c32   #默认加载图形模块
+  2 timeout 600            #读秒时间60秒    1/10秒
+
+ 10 menu background splash.png     #指定背景图片
+ 11 menu title NSD1903 PXE Server  #修改标题 
+
+ 61 label linux
+ 62   menu label ^Install CentOS 7  #屏幕显示
+ 63   menu default                  #读秒结束默认选择
+ 64   kernel vmlinuz                #调用内核
+ 65   append initrd=initrd.img ks=http://192.168.4.7/ks.cfg     #解压驱动程序
+systemctl  restart  tftp
+
+4.无人值守自动应答文件
+程序:system-config-kickstart
+运行:LANG=en  system-config-kickstart
+需要Yum仓库的支持,必须要求Yum光盘仓库标识为 [development]
+选择完成后保存到:/var/www/html
+

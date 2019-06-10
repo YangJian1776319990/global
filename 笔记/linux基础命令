@@ -1,0 +1,158 @@
+pwd						查看及切换目录
+cd						切换工作目录
+ls						显示当前目录内容
+-l:以长格式显示,显示详细属性
+-A:包括名称以 . 开头的隐藏文档
+-d:显示目录本身(而不是内容)的属性
+-h:提供易读的容量单位(K、M等)
+mkdir					创建目录
+-p:如果父目录不存在,则创建父目录
+touch					创建文件
+cat						查看文件内容，从头到尾
+-n 显示行号
+tac						查看文件内容，从尾到头
+rev						从右到左输出
+cat /proc/meminfo 真机检查内存大小、空闲情况
+less					分屏阅读工具
+head -n					显示头n行内容
+tail -n					显示尾n行内容
+column -t				列对齐
+lscpu					真机列出CPU处理器信息
+hostname				查看主机名或设置临时主机名
+ifconfig				列出已激活网卡连接信息
+type					查看系统命令类型
+netstat -ntulp			查看网络服务状态
+ping					测试ip地址是否连通
+watch -n 1	命令			每一秒执行命令
+-c 次数
+-i 时间间隔
+-W 等待超时时间
+echo					回显
+-e 开启转义
+ \\    反斜线
+\a    报警符(BEL)
+\b    退格符
+\c    禁止尾随的换行符
+\f    换页符
+\n    换行符
+\r    回车符
+\t    水平制表符
+\v    纵向制表符
+
+
+lsmod								显示模块列表
+modprobe 模块名						加载模块
+modinfo  模块名						查看模块信息
+linux系统也是模块化设计的
+
+nmtui					图形永久设置主机名,IP地址,dns服务器地址
+mount -o				挂载
+-t						指定文件系统类型
+alias					设置别名(临时)
+unalias				取消别名
+reboot -f				重启
+poweroff				关机
+history					查看历史命令列表
+-c:清空历史命令
+!n						执行命令历史中的第n条命令
+!str					执行最近一次以str开头的历史命令
+wget					下载文件,默认下载在当前目录
+-o 设置下载的路径和重命名
+
+uname -r				查看内核版本
+rpm --import			导入新的红帽签名
+rpm	-ivh				安装rpm包
+rpm -q					查看程序是否已安装
+rpm -qa					查看所有已安装程序
+rpm -ql					查看已安装程序安装清单
+rpm -e					卸载程序
+
+yum -y install			安装程序
+yum -y remove			删除程序
+yum provides 			查看文件属于哪个程序
+yum clean all			清楚yum缓存
+yum repolist			生成yum缓存
+yum groups list			显示软件组
+yum groups list　hidden		显示全部软件组
+
+自定义yum仓库
+1.rpm包
+2.仓库数据文件
+程序:createrepo
+3.配置文件:
+路径:/etc/yum.repos.d/
+
+du						统计文件的占用空间
+-s 只统计每个参数所占用的总空间大小
+-h 提供易读容量单位(K、M等)
+df						查看挂载情况
+-a 显示所有挂载
+-h 提供易读容量单位(K M等)
+
+date					查看/调整系统日期时间
++%F 显示年月日
++%R 显示时分
+date +"%Y-%m-%d %H:%M:%S"
+date -s "yyyy-mm-dd HH:MM:SS"
+
+ssh	-X user@ip			远程访问
+scp 文件名 user@ip:/路径	远程传输
+
+rm						删除
+-f:强制删除
+-r:删除对象是目录
+
+mv						移动
+cp						复制(可以多参数)	
+-r:复制目录
+-p:保持新文件属性不变
+
+目录结构
+man hier
+/boot			存放系统引导必需的文件,包括内核、启动配置
+/bin、/sbin		存放各种命令程序
+/dev			存放硬盘、键盘、鼠标、光驱等各种设备文件
+/etc			存放Linux系统及各种程序的配置文件
+/root、/home/	用户名 分别是管理员root、普通用户的默认家目录
+/var			存放日志文件、邮箱目录等经常变化的文件
+/proc			存放内存中的映射数据,不占用磁盘
+/tmp			存放系统运行过程中使用的一些临时文件
+
+
+红色		压缩文件
+黄色		设备文件
+绿色		可执行文件
+黑色		普通文件
+蓝色		目录
+
+
+快捷方式:
+1.软连接 
+ln  -s   /路径/源文件      /路径/快捷方式名
+若原始文件或目录被删除,连接文件将失效
+软连接可存放在不同分区/文件系统
+
+2.硬连接
+  ln    /路径/源文件      /路径/快捷方式名
+若原始文件被删除,连接文件仍可用
+硬连接与原始文件必须在同一分区/文件系统
+
+
+
+
+快捷键:
+Ctrl + shift + t	开启一个新的终端
+Ctrl + l:			清空整个屏幕
+Ctrl + c:			废弃当前编辑的命令行（结束正在运行的命令）
+Esc|Alt + .:		粘贴上一个命令的参数
+Ctrl + u:			清空至行首
+Ctrl + k:			清空至行尾
+Ctrl + w:			往回删除一个单词(以空格界定)
+
+
+/var/log/message 系统启动后的信息和错误日志，是Red Hat Linux中最常用的日志之一
+/var/log/secure 与安全相关的日志信息
+/var/log/maillog 与邮件相关的日志信息
+/var/log/cron 与定时任务相关的日志信息
+/var/log/spooler 与UUCP和news设备相关的日志信息
+/var/log/boot.log 守护进程启动和停止相关的日志消息

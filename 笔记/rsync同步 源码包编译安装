@@ -1,0 +1,81 @@
+rsync同步
+
+同步与复制的差异
+复制:完全拷贝源到目标
+同步:增量拷贝,只传输变化过的数据
+
+rsync [选项...]  源目录     目标目录
+-n:测试同步过程,不做实际修改
+--delete:删除目标文件夹内多余的文档
+-a:归档模式,相当于-rlptgoD
+-v:显示详细操作信息
+-z:传输过程中启用压缩/解压
+
+远程同步                  
+rsync+SSH同步= rsync + scp
+
+与远程的 SSH目录保持同步
+下行:rsync [...] user@host:远程目录    本地目录
+上行:rsync [...] 本地目录   user@host:远程目录
+
+实时同步
+需要程序:inotify-tools
+实现ssh的无密码验证,生成公钥 私钥
+
+1.虚拟机A生成公钥 私钥
+命令: ssh-keygen
+目录: /root/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+known_hosts:记录曾经远程管理过的主机
+
+2.虚拟机A传递公钥到虚拟机B上
+ssh-copy-id  root@192.168.4.207
+
+rsync -av --delete /nsd1903/ root@192.168.4.207:/opt/
+
+二  监控目录内容的变化
+
+inotifywait监控					
+inotifywait [选项] 目标文件夹
+-m,持续监控(捕获一个事件后不退出)
+-r,递归监控、包括子目录及文件
+-q,减少屏幕输出信息
+-e,指定监视的 modify、move、create、delete、attrib等事件类别
+
+三  书写shell脚本完成,实时同步操作
+#!/bin/bash
+while  inotifywait -rqq /nsd1903 
+ do
+ rsync -a --delete /nsd1903/ root@192.168.4.207:/opt/
+ done
+[root@svr7 ~]# /root/rsync.sh
+
+
+
+
+
+
+
+
+
+
+
+源码包编译安装
+程序:gcc,make
+
+源码编译安装的优势:
+获得软件的最新版,及时修复bug
+软件功能可按需选择/定制,有更多软件可供选择
+源码包适用各种平台
+
+安装:
+rpm包:	rpm -ivh    yum install
+源码包:	gcc make开发工具---->可以执行的程序--->运行安装
+
+
+1:安装gcc make开发工具(安装依赖关系的软件)
+2:tar解包,释放源代码至指定目录
+3: ./configure 配置,指定安装目录/功能模块等选项            --prefix=指定安装的位置
+4:make 编译,生成可执行的二进制程序文件
+5:make install 安装,将编译好的文件复制到安装目录

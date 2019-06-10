@@ -1,0 +1,65 @@
+分区规划及使用
+扇区大小默认为512字节
+lsblk 　　　　显示当前系统中硬盘
+
+分区规划
+     
+分区模式：MBR 主引导记录分区模式
+MBR/msdos 分区模式
+1~4个主分区　或者　3个主分区+1个扩展分区(n个逻辑分区)
+最大支持容量为 2.2TB 的磁盘
+扩展分区不能格式化
+
+fdisk
+n 创建新的分区----->回车----->回车---->回车----->在last结束时 +1G
+p 查看分区表
+n 创建新的分区----->回车----->回车---->回车----->在last结束时 +2G
+d 删除分区
+w 保存并退出    
+
+三　格式化:赋予空间文件系统
+文件系统：数据在空间存储的规则
+
+Windows: FAT  NTFS
+Linux:RHEL6:ext4 RHEL7:xfs
+
+mkfs 工具集
+mkfs.ext3 分区设备路径
+mkfs.ext4 分区设备路径
+mkfs.xfs 分区设备路径
+mkfs.vfat -F 32 分区设备路径
+
+五　永久挂载
+实现开机自动挂载
+配置文件 /etc/fstab 的记录格式
+
+创建卷组
+vgcreate 卷组名   设备路径........
+-s 指定PE大小
+
+扩展卷组
+vgextent 卷组名   设备路径........
+
+
+创建逻辑卷
+lvcreate -n 逻辑卷名字   -L 逻辑卷大小   卷组名
+lvcreate -n 逻辑卷名字   -l PE数值  卷组名
+
+扩展逻辑卷
+lvextend -L 逻辑卷大小  逻辑卷
+lvextend -l PE数值	   逻辑卷
+
+lvs		显示所有逻辑卷
+vgs		显示所有卷组
+
+2.扩展逻辑卷文件系统的大小
+xfs_growfs 逻辑卷
+
+
+卷/卷组的删除
+lvremove   vgremove   pvremove
+ 优先删除逻辑卷,再去删除卷组,最后删除物理卷
+
+
+LANG=en growpart /dev/vda  1  #扩展/dev/vda磁盘的第一个分区空间
+xfs_growfs /dev/vda1       #扩展/dev/vda1文件系统

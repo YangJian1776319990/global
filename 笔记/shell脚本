@@ -1,0 +1,156 @@
+变量分类
+存储类型:整数星,浮点型,双精度浮点型,字符型,布尔型
+使用类型:
+环境变量		变量名通常大写,由系统维护,用来设置工作环境,只有个别变量用户可以直接更改
+			配置文件:/etc/profile ./.bash_profile
+			env:列出所有环境变量	set:列出所有变量
+			常见的环境变量:PWD(当前目录路径)	PATH USER(当前登录用户) LOGNAME UID(当前用户uid) SHELL HOME PS1 PS2 ......
+位置变量		bash内置,储存执行脚本时提供的参数
+			$1	$2	$3	$4	$5	$6 ......
+预定义变量	bash内置,一类有特殊用途的变量,可直接调用,但不能直接赋值或修改
+			$0:当前所在的进程或脚本名
+			$$:当前运行进程的PID
+			$?:命令执行后的执行状态
+			$#:已加载的位置变量个数
+			$*:所有位置变量的值
+自定义变量	由用户自主设置,修改及使用
+
+变量定义赋值
+x=1
+name=lisi
+read 变量名	-t:限定秒数	-p:提示
+
+引用变量
+$x
+$name
+
+取消定义赋值
+unset x
+unset name
+
+分区显示控制:
+stty -echo		关闭回显
+stty echo 		开启回显
+
+全局变量:
+配置文件:/etc/profile(对所有用户有效) ~/.bash_profile(对当前用户有效)
+设置全局变量		export x=lisi		yy=a   export yy
+取消全局属性		export -n lisi
+关机后全局变量自动失效
+
+$RANDOM	随机数
+
+
+运算符
+bash内建机制仅支持整数值运算
+
++ - * / %
+
+expr运算工具		不支持小数值运算
+expr $x + $y
+expr $x - $y
+expr $x \* $y
+expr $x / $y
+expr $x % $y
+
+bc运算工具		支持高精度数值运算
+linux默认安装bc
+进入指令:bc
+scale=4		设置小数位数
+quit		退出
+
+可与管道结合进行运算:echo "scale=4;12.3 * 12.4" | bc
+
+
+$[表达式]  $((表达式)): 计算结果代替表达式本身, 乘法*无需转义
+
+字符串
+[ $a == $b ]
+==	!=	-z	-n
+$a=$a$b
+
+整数
+[ $a -eq $b ]
+-eq	-ne	-gt	-lt	-ge	-le
+
+文件
+[ -e $a ]
+-e	-f	-d	-r	-w	-x
+
+小数
+echo "$a == $b"|bc	
+>	<	>=	<=	==	!=
+
+
+
+if单分支
+if [  ]
+then
+命令
+fi
+
+if双分支
+if [  ]
+then
+命令
+else
+命令
+fi
+
+if多分支
+if [  ]
+then
+命令
+elif [  ]
+then
+命令
+else
+命令
+fi
+
+
+for循环
+for 变量 in　值列表
+do
+命令序列
+done 
+
+for((i=0;i<=5;i++))
+do
+done
+
+while循环
+while 条件
+do
+命令
+done
+
+输入命令｜while read var
+do
+命令
+done
+
+函数
+function 函数名{
+命令序列
+}
+
+函数名(){
+命令序列
+}
+
+
+字符串操作
+x=abcabc
+${x:1:2} --> bc			字符串截取,从０开始
+${x:0:3} -->abc
+
+${x/a/b} --> bbcabc		字符串替换，只替换一个
+${x//a/b} -->bbcbbc		替换所有
+${x//a/} -->bcbc			替换为空，等于删除
+
+$[++a]
+
+sh -x 脚本名			开启调试模式
+
+

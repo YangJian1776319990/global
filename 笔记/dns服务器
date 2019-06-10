@@ -1,0 +1,171 @@
+DNS服务基础
+DNS服务器的功能:
+正向解析:根据注册的域名查找其对应的IP地址
+反向解析:根据IP地址查找对应的注册域名,不常用
+
+一级DNS服务器
+二级DNS服务器 
+三级DNS服务器
+所有有的域名都必须以点结尾
+
+
+
+根域:		. 
+一级域名:		.cn
+二级域名:		.com.cn
+三级域名:		haxi.com.cn
+
+FQDN		Full Qualified Domain Name(完全合格主机名)
+主机头部,正确申请的域名结尾, 例如:vip.nb.com.cn
+
+软件包:				bind bind-chroot
+主要执行程序:			/usr/sbin/named
+系统服务:				named
+默认端口:				TCP/UDP(协议) 53
+运行时的虚拟根环境:		/var/named/chroot/
+
+主配置文件:/etc/named.conf    设置本机负责解析的域名
+地址库文件:/var/named/        完全合格的域名与IP地址的对应关系
+
+主配置文件:/etc/named.conf
+options {
+        directory       "/var/named";   #地址库文件存放位置
+};
+zone "tedu.cn" IN {           #指定负责解析域名
+        type master;          #指定为权威主服务器
+        file "tedu.cn.zone";  #指定地址库文件名称
+};
+
+地址库文件:/var/named/
+cp -p named.localhost  tedu.cn.zone
+
+ 所有的域名都必须以点结尾,都要写最后的点
+ 没有以点结尾,默认补全本地址库文件负责的域名
+
+DNS服务器的资源解析记录类型?
+   NS     声明DNS服务器记录
+   A      地址解析记录
+   CNAME  解析记录别名
+
+ tedu.cn.      NS  svr7        #声明负责解析tedu.cn域名为svr7主机
+ svr7          A   192.168.4.7 #声明svr7主机的IP地址为192.168.4.7
+ www           A   192.168.4.1 #正常解析记录
+ ftp           A   192.168.4.2 #正常解析记录
+
+指定DNS服务器位置: /etc/resolv.conf
+nameserver  192.168.4.7
+
+测试DNS解析命令echo "C" > /var/www/html/index.html
+nslookup www.tedu.cn
+host www.tedu.cn
+
+特殊的解析记录
+1.基于域名的负载均衡 
+tedu.cn.       NS  svr7
+svr7           A  192.168.4.7
+www            A  192.168.4.11
+www            A  192.168.4.12
+www            A  192.168.4.13
+
+2.泛域名解析 
+tedu.cn.       NS  svr7
+svr7           A   192.168.4.7
+*              A   1.2.3.4
+
+3.有规律的泛域名解析
+
+tedu.cn.       NS  svr7
+svr7           A  192.168.4.7
+$GENERATE  1-50  pc$   A  192.168.10.$				内置函数: $GENERATE   起始-结束     #制造连续范围的数字
+
+
+4.解析记录的别名
+tts		CNAME		ftp
+
+
+客户端解析域名优先级
+1./etc/hosts       #直接提供解析结果,只为本机提供服务
+2./etc/resolv.conf  #寻找DNS服务器解析
+
+DNS子域授权
+父域:www.qq.com
+子域:www.bj.qq.com
+
+父域: 
+ qq.com.       NS  svr7
+ bj.qq.com.    NS  pc207
+ svr7           A  192.168.4.7
+ pc207          A  192.168.4.207
+ www            A  192.168.4.10
+ ftp            A  2.2.2.2
+
+Non-authoritative answer:   #非权威解答
+Name:	www.bj.qq.com
+Address: 50.60.70.80
+
+递归解析: 接受客户端解析请求,本机与其他DNS服务器交流,最终将解析结果带回来的过程
+   
+options {
+        directory       "/var/named";
+        recursion no;
+};
+
+
+迭代解析:本机与其他DNS服务器交流
+
+验证迭代查询
+程序:bind-utils
+格式: dig @DNS服务器 目标地址			例如: dig www.bj.qq.com 192.168.4.7
+
+缓存DNS,提高解析效率
+
+虚拟机A:真DNS服务器
+虚拟机B上操作,搭建缓存DNS服务器
+虚拟机C:客户端
+
+虚拟机B 
+options {
+        directory       "/var/named";
+        forwarders  { 192.168.4.7; };  #转发给192.168.4.7
+};
+[root@pc207 /]# systemctl restart named
+
+虚拟机C
+nslookup ftp.tedu.cn 192.168.4.207
+Server:		192.168.4.207
+Address:	    192.168.4.207#53
+
+Non-authoritative answer:
+Name:	ftp.tedu.cn
+Address: 192.168.4.2
+
+
+Split分离解析(视图解析)
+什么是分离解析
+当收到客户机的DNS查询请求的时候,能够区分客户机的来源地址,为不同类别的客户机提供不同的解析结果(IP地址)
+为客户端提供最近服务器IP地址
+
+由上到下进行,匹配及停止
+分类要合理,每一个客户端都要找到自己的分类
+所有的zone必须都在view中
+
+BIND的view视图
+根据源地址集合将客户机分类
+不同客户机获得不同结果(待遇有差别)
+	view "联通" {
+	match-clients {  来源地址1;   .. ..;  };
+	zone "12306.cn" IN {
+	...... 地址库1;
+	}; };
+	view "铁通" {
+	match-clients {  来源地址2;   .. .. ;  };
+	zone "12306.cn" IN {
+	...... 地址库2;
+	}; };
+
+
+补充分离解析  acl test  { ; ; };
+acl test { 192.168.4.207; 192.168.4.1; 192.168.4.2; };
+view "nsd" {
+  match-clients { test; };
+..........
