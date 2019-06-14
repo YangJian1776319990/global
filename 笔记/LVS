@@ -1,5 +1,3 @@
-
-集群
 集群分类:
 高性能计算集群HPC－－－通过集群开发的并行应用程序,解决复杂的科学问题
 负载均衡(LB)集群 －－－客户端负载在计算机集群中尽可能平均分摊
@@ -7,8 +5,8 @@
 
 
 LVS:(集成在内核)
-lc			不支持权重
-wrr			支持权重
+算法:wrr rr wlc lc sh
+模式:NAT(-m) DR(-g) TUN
 
 程序包：ipvsadm
 同一台服务器可以创建多个集群
@@ -42,9 +40,6 @@ ipvsadm -C
 /etc/sysctl.conf
 /usr/lib/sysctl.d/		/run/sysctl.d/		/etc/sysctl.d/
 net.ipv4.conf.a=
-
-
-
 
 配置网卡的虚拟接口
 cd /etc/sysconfig/network-scripts/

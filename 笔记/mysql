@@ -1,3 +1,6 @@
+
+day1
+
 官网:http://dev.mysql.com/downloads/mysql
 mysql-community-client				客户端应用程序
 mysql-community-common				数据库和客户端共享文件
@@ -122,6 +125,10 @@ time()
 单选: enum(值1,值2,值3,......)
 多选: set(值1,值2,值3,......)
 
+
+
+day2
+
 约束条件
 null
 not null
@@ -144,5 +151,280 @@ alter table t10 drop age;
 
 alter table 表名 rename 新表名;
 alter table t10 rename student; 
+
+create table s1 ( id int not null auto_increment, name varchar(10) default null, primary key(id)) engine=innodb charset=utf8;
+create table s1 ( id int not null primary key auto_increment, name varchar(10) default null ) engine=innodb charset=utf8;
+
+约束条件
+null , not null , key , default , extra
+
+键值
+index				普通索引
+unique				唯一索引
+fulltext			全文索引
+primary key		主键
+foreigh key		外键
+
+索引
+优点:通过创建唯一性索引,可以保证数据库表中每一行数据的唯一性.
+	可以加快数据的查询速度
+缺点:当修改表中的数据,索引也要动态的调整,降低了数据的维护速度
+	索引需要占物理空间
+
+index普通索引
+一个表可以存在多个index字段,值允许重复,允许空值,通常把作为查询条件的字段设置为index字段,标志是,MUL
+create table s3(id int , name char(5),index(name));
+drop index index_name on table_name;
+drop index name on s3;
+create index index_name on table_name(column);
+create index name on s3(name);
+show index form table_name \G;           \G竖排显示
+show index from s3\G;
+
+主键: primary key
+值不能重复,no null,只能存在一个primary key , 可以多个字段作为一个主键(复合主键:多个字段的值不能同时和上面的某一行重复)  ,  标志PRI , 通常与auto_increment连用,通常把表中唯一标识记录的字段设置为主键
+create table table_name(id int primary key, name char(20));
+create table s5(id int , name char(20),primary key(id,name));
+alter table table_name add primary key(column);
+alter table table_name drop primary key;			主键唯一,不用指定
+
+外键: foreign key
+插入记录时,字段值在另外一个表字段值范围内选择
+使用规则
+表存储引擎必须是innodb
+字段类型要一致
+被参照字段必须要是索引类型的一种(primary key)
+create table table_name(id int ,name char(50),foreign key(column) references table_name(column) on update cascade on delete cascade)engine innodb;
+create table s6(id int ,name char(50),foreign key(id) references s5(id) on update cascade on delete cascade)engine innodb;
+alter table table_name drop foreign key foreign_key_name;
+foreign_key_name通过show create table table_name查看;
+
+
+day 3
+
+查看搜索路径
+show variables like "secure_file_priv";
+默认:/var/lib/mysql-files/	属主:mysql	属组:mysql
+
+修改搜索路径:
+[mysql]
+secure_file_priv="file_name"
+修改后重启服务生效
+
+数据导入
+load date infile "路径/文件名" into table table_name fields terminated by "列分隔符" lines terminated by "\n";
+load date infile "/myload/passwd" into table user fields terminated by ":" lines terminated by "\n";
+导入表需要自己手动创建,字段分隔符要与文件一致,表字段类型和字段个数要与文件匹配,导入数据时指定文件的绝对路径
+
+数据导出
+select ...... into outfile "目录名/文件名";
+select ...... into outfile "目录名/文件名" fields terminated by "分隔符";			列分隔符默认 " "
+select ...... into outfile "目录名/文件名" fields terminated by "列分隔符" lines terminated by "行分隔符";		行分隔符默认\n
+
+注意:
+导出数据行数由sql查询输出结果决定
+导出的表记录不包括字段名
+自动创建储存数据的文件,如果文件已存在则报错
+存储数据文件,具有唯一性
+
+管理表记录
+insert into table_name values();
+insert into table_name values(),(),();
+insert into table_name() values();
+insert into table_name() values(),(),();
+insert into table_name() values();
+select column_name,column_name... from table_name where 条件;
+update table_name set column_name=value,column_name=value where 条件;
+delete from table_name where 条件;
+
+基本匹配条件
+数值比较
+=	>	>=	<	<=	!=
+字符比较
+=	!=	is null	is not null
+逻辑匹配
+or		||	或
+and		&&	与
+not		!	非					select * from user where not user="root";
+( )		提高优先级,()优先级最高		select * from user where (uid+gid)=4;
+
+范围内匹配/去重显示
+in 值列表					在...里面
+select * from user where uid in (1,2,3,4,5,6);
+
+not in 值列表				不在...里面
+select * from user where uid not in (select uid from user where uid>5 && uid <10);
+
+between 10 and 20			在 10 和 20 之间
+select * from user where uid between 500 and 1000 ;   	包括500和1000
+
+distinct					去重显示
+select distinct shell from user;
+select distinct uid,gid from user;			uid,gid须同时相同
+
+模糊匹配
+like "通配符"
+_				表示单个字符
+select * from user where user like "____";
+
+%				表示n个字符, n最小为0,且为整数
+select * from user where user like "%oo%";
+select * from user where user like "____" and user like "%oo%";
+
+正则表达式
+regexp "正则表达式"
+^	$	.	[]	*	|(或)
+select * from user where user regexp '^r.*t$';
+select * from user where user regexp '^r|t$';
+select * from user where uid regexp '[2]';
+select * from user where user regexp '^....$';
+
+四则运算
++
+select user,uid,gid,uid+gid zh from user;
+-
+update user set gid=gid-1 where name="root";
+*
+select * from user where uid*gid=4;
+/
+select * from user where uid/gid=4;
+%
+select * from user where uid%gid=4;
+(--)
+select * from user where (uid+gid)*2=8;
+
+聚集函数
+avg			select avg(uid) avg_uid from user;		
+sum			select sum(uid) from user;
+count		select count(uid) from user;
+min			select * from user where uid=(select min(uid) from user);
+			select min(gid) from user;
+max			select * from user where uid=(select max(uid) from user);
+			select max(gid) from user;
+
+排序: order
+select * from user order by uid;
+select * from user order by uid desc;
+
+分组: group
+select shell from user group by shell;
+select count(*) from user group by shell;			
+select count(shell) from user group by shell;		同上比较区别
+select count(shell) from user group by shell order by count(shell) ;
+
+过滤:having
+select user from user having user="root";
+select count(*) from user where uid<100 group by shell having shell="/sbin/nologin";
+
+限制:limit
+select user from user limit 2,10;
+select user from user order by uid limit 2,10;
+
+day04
+
+用户授权
+grant 权限列表 on 库名 to 用户名@"客户端地址" identified by "密码" with grant option;
+with grant option		允许用户有授权权限
+权限列表
+all
+usage
+select,update,insert
+select,update(字段1,字段2,......)
+库名
+*.*		库名.*	库名.表名
+
+用户名: 自定义
+
+客户端地址:
+%				all
+192.168.4.%		192.168.4.0
+192.168.4.1		192.168.4.1
+localhost		仅本机
+
+select @@hostname;						显示链接的数据库的主机名
+select user();							显示登录用户名和客户端地址
+select grants;							用户显示自身访问权限
+show grants for 用户名@'客户端地址'		管理员查看已有授权用户权限
+set password=password('密码')			授权用户连接后修改连接密码
+set password for 用户名@'客户端地址' = password("密码");	管理员重置授权用户连接密码
+drop user 用户名@"客户端地址"			删除授权用户(必须有管理员权限)
+
+记录授权信息表
+mysql.user						记录已有的授权用户及权限
+grant select on *.* to admin@'%' identified by '123456' with grant option;
+
+mysql.db						记录已有授权用户对数据库的访问权限
+grant select on db3.* to admin@'%' identified by '123456' with grant option;
+
+mysql.tables_priv				记录已有授权用户对表的访问权限
+grant select on db3.user to admin@'%' identified by '123456' with grant option;
+
+mysql.columns_priv				记录已有授权用户对字段的访问权限
+grant select(user,password),update(uid,gid) on db3.user to admin@'%' identified by '123456' with grant option;
+
+撤销权限
+revoke 权限列表 on 库名.表 from 用户名@'客户端地址';
+revoke select(user) on db3.user from admin@'%';
+revoke select on db3.user from admin2@'%';
+revoke grant option on *.* from mydba@'%';
+注意: 撤销权限不等于删除用户
+
+物理备份
+1 cp -r /var/lib/mysql 备份目录/mysql.bak
+2 tar -zcvf /root/mysql.tar.gz /var/lib/mysql/*
+
+物理恢复
+1 cp -r 备份目录/mysql.bak /var/lib/mysql/
+2 tar-xf /root/mysql.bak  -C /var/lib/mysql/
+
+恢复后修改权限
+chown -R mysql:mysql /var/lib/mysql
+
+完全备份
+mysqldump -uroot -p'密码' 库名 > /xxx.sql
+恢复
+mysql -uroot -p'密码' 库名 < /xxx.sql
+库名表示方式
+--all-databases		所有库
+-A						所有库
+数据库名					单个库
+数据库名 表名				单个表
+-B 数据库1 数据库2		多个库
+
+增量备份
+通过binlog日志实现
+biglog日志: 二进制日志,是mysql服务日志文件的一种,记录了除查询之外的所有sql命令,可用于数据备份和恢复,是配置mysql主从同步的必要条件
+binlog日志默认没有开启
+配置日志
+/etc/my.cnf
+[mysqld]
+log-bin 或 log_bin [ = 文件 ]
+server_id = 100		范围是1~255,为防止搞混,一般写主机位
+max_binlog_size = 10m	指定日志文件容量,默认1G
+
+手动生成新日志文件
+1.systemctl restart mysqld
+2.flush logs;								需要在mysql里面
+  mysql -uroot -p'密码' -e 'flush log'
+3.mysqldump --flush-logs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

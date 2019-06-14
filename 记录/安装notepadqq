@@ -1,0 +1,10 @@
+$ sudo wget -O /etc/yum.repos.d/sea-devel.repo http://sea.fedorapeople.org/sea-devel.repo
+
+sudo yum install -y qt5-qtbase-devel qt5-qttools-devel qt5-qtwebkit-devel qt5-qtsvg-devel
+$ sudo yum install notepadqq
+
+
+Optional, to remove notepadqq, do:
+如果缺少依赖
+https://centos.pkgs.org/7/epel-x86_64/qt5-qtwebkit-5.6.2-1.el7.x86_64.rpm.html
+

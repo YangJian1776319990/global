@@ -1,0 +1,41 @@
+bridge桥接虚拟网络
+
+程序包:bridge-utils , tunctl
+
+查看逻辑(虚拟)网桥接口
+brctl show
+
+增加一个新的逻辑(虚拟)网桥接口bro
+brctl addbr br0
+
+把eth0和tap0都加进逻辑(虚拟)网桥br0
+brctl addif br0 eth0
+brctl addif br0 tap0
+
+把eth0和tap0都整成混杂模式
+ifconfig eth0 0.0.0.0
+ifconfig tap0 0.0.0.0
+
+配置网桥IP并启动
+ifconfig br0 10.239.54.105 up
+
+关闭网桥命令
+brctl delif ena eth1;
+brctl delif ena eth0;
+ifconfig ena down;
+brctl delbr ena;
+
+启动网桥命令
+ifconfig ena up;
+
+总结：
+主要命令为brctl
+1、创建网桥设备 br0： brctl addbr br0
+2、向br0中添加网卡 eth0 eth1
+brctl addif eth0
+brctl addif eth1
+3、从网桥中删除网卡 eth0 eth1
+brctl delif eth0
+brctl delif eth1
+4、删除网桥 br0 ： brctl delbr br0
+PS：以上步骤可以手动配置在/etc/sysconfig/network-scripts/目录下建立ifcfg-br0(br0为网桥接口名称)，配置ifcfg-br0、ifcfg-eth0等。
