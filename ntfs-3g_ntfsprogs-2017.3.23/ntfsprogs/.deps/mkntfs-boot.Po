@@ -1,0 +1,5 @@
+mkntfs-boot.o: boot.c /usr/include/stdc-predef.h boot.h
+
+/usr/include/stdc-predef.h:
+
+boot.h:

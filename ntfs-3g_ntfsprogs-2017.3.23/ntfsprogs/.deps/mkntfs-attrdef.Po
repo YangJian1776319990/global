@@ -1,0 +1,5 @@
+mkntfs-attrdef.o: attrdef.c /usr/include/stdc-predef.h attrdef.h
+
+/usr/include/stdc-predef.h:
+
+attrdef.h:

@@ -1,0 +1,164 @@
+环境准备
+	配置ip
+	关闭防火墙 selinux
+	
+创建用户和组
+	groupadd oinstall
+	groupadd dba
+	useradd -g oinstall -G dba -m oracle
+	passwd oracle
+
+创建安装目录
+	mkdir -p /data/oracle/oraInventory
+	mkdir -p /data/oracle/product
+	chown -R oracle:oinstall /data
+	chmod -R 755 /data
+
+修改系统标识
+	echo redhat-7 > /etc/redhat-release
+
+安装依赖包
+	binutils
+	compat-libcap1
+	compat-libstdc++-33
+	gcc
+	gcc-c++
+	glibc
+	glibc-devel 
+	ksh
+	libaio 
+	libaio-devel
+	libgcc
+	libstdc++
+	libstdc++-devel
+	libXi
+	libXtst
+	make
+	sysstat
+	unzip
+		yum -y install binutils compat-libcap1 compat-libstdc++-33 gcc gcc-c++ glibc glibc-devel ksh libaio libaio-devel libgcc libstdc++ libstdc++-devel libXi libXtst make sysstat unzip
+
+修改内核参数
+	vim /etc/sysctl.conf
+		fs.aio-max-nr=1048576
+		fs.file-max=6815744
+		kernel.shmall=2097152
+		kernel.shmmax=1073741824
+		kernel.shmmni=4096
+		kernel.sem=250 32000 100 128
+		net.ipv4.ip_local_port_range=9000 65500
+		net.core.rmem_default=262144
+		net.core.rmem_max=4194304
+		net.core.wmem_default=262144
+		net.core.wmem_max=1048576
+
+			fs.aio-max-nr:可以同时拥有的的异步IO请求数目 一般为1024*1024
+			fs.file-max:系统所有进程可以同时打开的文件数目 一般为6.5*1024*1024
+			kernel.shmmax:单个共享内存段的最大值,可取的最大值为物理内存值 -1byte ，建议值为多于物理内存的一半，一般取值大于 SGA_MAX_SIZE
+			kernel.shmall:可以使用的共享内存的总页数 一般为 总内存/内存页大小
+			kernel.shmmni:设置系统范围内共享内存段的最大数量,默认4096
+			net.ipv4.ip_local_port_range:本地发起连接请求时可以获取的随机端口
+			net.core.rmem_default:接收套接字缓冲区大小的默认值
+			net.core.rmem_max:接收套接字缓冲区大小的最大值
+			net.core.wmem_default:发送套接字缓冲区大小的默认值
+			net.core.wmem_max:发送套接字缓冲区大小的最大值
+
+	sysctl -p
+		
+
+
+
+修改系统对oracle用户的限制
+	vim /etc/security/limits.conf
+		oracle  soft    nproc   2047
+		oracle  hard    nproc   16384
+		oracle  soft    nofile  1024
+		oracle  hard    nofile  65535
+		oracle  soft    stack   10240
+		oracle  hard    stack   10240
+
+配置环境变量
+	su - oracle
+	vim .bash_profile
+		export ORACLE_BASE=/data/oracle
+		export ORACLE_HOME=$ORACLE_BASE/product
+		export PATH=$PATH:$ORACLE_HOME/bin
+		export ORACLE_SID=orcl
+
+		#图形界面安装时,需添加如下两行,否则安装界面乱码
+		export NLS_LANG=AMERICAN_AMERICA.UTF8
+		export LANG=en_US.UTF8
+
+
+修改/etc/pam.d/login文件
+	vim /etc/pam.d/login
+		session required /lib64/security/pam_limits.so
+		session required pam_limits.so
+
+修改/etc/profile文件
+	if [ $USER = "oracle" ]
+	then
+		if [ $SHELL = "ksh" ]
+		then
+			ulimit -p 16384
+			ulimit -n 65535
+		else
+			ulimit -u 65535
+		fi
+	fi
+
+解压安装包
+	su - oracle
+	unzip linux.x64_11gR2_database_1of2.zip 
+	unzip linux.x64_11gR2_database_2of2.zip
+
+静默安装
+修改应答文件
+	cd /home/oracle/database/response
+	vim db_install.rsp
+		oracle.install.option=INSTALL_DB_SWONLY
+		ORACLE_HOSTNAME=oracle-1
+		UNIX_GROUP_NAME=oinstall
+		INVENTORY_LOCATION=/data/oracle/oraInventory
+		SELECTED_LANGUAGES=en,zh_CN
+		ORACLE_HOME=/data/oracle/product
+		ORACLE_BASE=/data/oracle
+		oracle.install.db.InstallEdition=EE
+		oracle.install.db.DBA_GROUP=dba
+		oracle.install.db.OPER_GROUP=oinstall
+		oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
+		DECLINE_SECURITY_UPDATES=true
+
+安装数据库
+	su - oracle
+	/home/oracle/database/runInstaller -silent -ignorePrereq -responseFile /home/oracle/database/response/db_install.rsp
+	安装完成后,根据提示以root用户执行两个脚本
+
+配置监听
+	su - oracle
+	netca /silent /responseFile /home/oracle/database/response/netca.rsp
+
+建立新库
+	vim /home/oracle/database/response/dbca.rsp
+		[CREATEDATABASE]
+		GDBNAME = "orcl.oradb"
+		SID = "orcl"
+		CHARACTERSET = "AL32UTF8"
+		NATIONALCHARACTERSET= "UTF8"
+
+	dbca -silent -responseFile /home/oracle/database/response/dbca.rsp
+
+图形安装
+	
+./runInstaller -jreLoc /usr/lib/jvm/jre-1.8.0
+报错提示:
+1	DISPLAY not set
+	解决办法: export DISPLAY=:0.0
+
+2	NO protocol specified
+	解决办法: su - root;xhost +
+
+
+文章参考: https://blog.csdn.net/qq_32786873/article/details/82110235
+		
+
