@@ -40,6 +40,8 @@
 
 修改内核参数
 	vim /etc/sysctl.conf
+
+8G
 		fs.aio-max-nr=1048576
 		fs.file-max=6815744
 		kernel.shmall=2097152
@@ -51,6 +53,20 @@
 		net.core.rmem_max=4194304
 		net.core.wmem_default=262144
 		net.core.wmem_max=1048576
+
+4G
+		fs.aio-max-nr=1048576
+		fs.file-max=6815744
+		kernel.shmall=970264
+		kernel.shmmax=3974205000
+		kernel.shmmni=4096
+		kernel.sem=250 32000 100 128
+		net.ipv4.ip_local_port_range=9000 65500
+		net.core.rmem_default=262144
+		net.core.rmem_max=4194304
+		net.core.wmem_default=262144
+		net.core.wmem_max=1048576
+
 
 			fs.aio-max-nr:可以同时拥有的的异步IO请求数目 一般为1024*1024
 			fs.file-max:系统所有进程可以同时打开的文件数目 一般为6.5*1024*1024
@@ -84,6 +100,7 @@
 		export ORACLE_HOME=$ORACLE_BASE/product
 		export PATH=$PATH:$ORACLE_HOME/bin
 		export ORACLE_SID=orcl
+		export LANG=zh_CN.UTF-8
 
 		#图形界面安装时,需添加如下两行,否则安装界面乱码
 		export NLS_LANG=AMERICAN_AMERICA.UTF8
@@ -160,5 +177,7 @@
 
 
 文章参考: https://blog.csdn.net/qq_32786873/article/details/82110235
+
+oracle rac: https://www.cnblogs.com/lijiaman/p/11185504.html
 		
 

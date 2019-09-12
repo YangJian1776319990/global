@@ -1,0 +1,54 @@
+例一：linux下备份自身系统
+1.备份
+用root权限，运行完整的备份命令：
+$ sudo su
+# tar -cvpzf /media/disk/backup.tgz / --exclude=/proc --exclude=/lost+found --exclude=/tmp --exclude=/sys --exclude=/media --exclude=/home
+接着，让我们稍微解释一下：
+* '-cvpzf'是我们给tar加的选项。
+* /media/disk/backup.tgz是压缩包的存放路径与名称。
+* ‘/'是我们想要备份的目录，我们想要备份根目录下的所有的东西，所以使用 / 作为根目录。
+* '--exclude'就是我们要剔除的目录了。
+有些目录是不需要备份的。如：/proc目录、 /tmp目录、/sys目录，里面都是临时文件，备份容易出错，/home目录备份容易引起"tar: 由于前面延迟的错误而退出"的提示。 同时确保你没有任何东西挂载在/mnt、/media目录内，否则，会把被挂载的分区也备份在内，备份文件会很大。还要注意不要把备份文件本身也备份进去了，也需要剔除。
+
+备份结束以后，在你的/media/disk目录下有一个backup.tgz ，这就是你的备份文件。
+
+2.恢复备份
+慎用，将会把你目标路径下的所有同名文件替换成压缩文档里的文件，目标路径下多出的目录与文件并不会必删除。
+sudo tar -xvpzf backup.tgz -C /
+
+注：参数x是告诉tar程序解压缩备份文件。 -C 参数是指定tar程序解压缩到的目录。
+
+恢复完了以后，再手工建立如下一些目录：
+mkdir proc
+mkdir lost+found
+mkdir sys
+mkdir tmp
+mkdir media
+重启
+
+例二：linux下备份另一个linux系统
+
+1.备份
+用root权限，运行完整的备份命令：
+$ sudo su
+# tar -cvpzf /media/disk-1/backup.tgz -C /media/disk .
+
+注解：
+备份文件的存放路径与名称为/media/disk-1/backup.tgz
+只备份/meda/disk目录内的内容，不含/media/disk路径。
+-C是临时切换工作目录，这样就不把/media/disk路径备份在压缩包里了。
+备份时没有剔除任何目录，因为另一个linux没有运行，里面没有临时文件。
+注意-C /media/disk的后面是空格加英文点。
+
+2.还原：
+建议先清空目标路径下的除/boot目录外的所有文件，再还原备份，命令如下：
+rm -fv 目录名
+
+还原/media/disk-1/backup.tgz压缩包到/media/disk目录下。
+$ sudo su
+# tar -xvpzf /media/disk-1/backup.tgz   -C /media/disk
+或：
+# cd /media/disk
+# tar -xvpzf /media/disk-1/backup.tgz
+
+https://blog.csdn.net/xianbt/article/details/18873377

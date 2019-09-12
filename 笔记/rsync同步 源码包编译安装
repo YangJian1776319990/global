@@ -18,6 +18,8 @@ rsync+SSH同步= rsync + scp
 下行:rsync [...] user@host:远程目录    本地目录
 上行:rsync [...] 本地目录   user@host:远程目录
 
+断点续传
+
 实时同步
 需要程序:inotify-tools
 实现ssh的无密码验证,生成公钥 私钥
