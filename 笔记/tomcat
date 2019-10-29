@@ -1,32 +1,42 @@
-tomcat每次启动都需要读取足够多的随机数据(为了更安全)(内存中随机数据越多,启动越快,从dev/random(默认读取) /dev/urandom`中读取)
+一安装tomcat9.0.6
+	tar -xf apache-tomcat-9.0.6.tar.gz
+	mv apache-tomcat-9.0.6 /usr/local/tomcat
+	注:tomcat由java代码编写,启动前需要先安装jdk,教程在本目录下jdk文件
 
-如果检查端口时，8005端口启动非常慢，可用使用下面的命令用urandom替换random（非必须操作）。
-mv /dev/random  /dev/random.bak
-ln -s /dev/urandom  /dev/random
+二启动tomcat
+	ln -s /usr/local/tomcat/bin/startup.sh /usr/local/bin/tomcat_start
+	ln -s /usr/local/tomcat/bin/shutdown.sh /usr/local/bin/tomcat_shutdown
+	注:创建软连接方便使用
+	tomcat_start
+
+	注:tomcat每次启动都需要读取足够多的随机数据(为了更安全)(内存中随机数据越多,启动越快,从dev/random(默认读取) /dev/urandom中读取)
+	如果检查端口时，8005端口启动非常慢，可用使用下面的命令用urandom替换random（非必须操作）。
+	mv /dev/random  /dev/random.bak
+	ln -s /dev/urandom  /dev/random
 
 配置文件: /usr/local/tomcat/conf/server.xml
-<Server>
-   <Service>
-     <Connector port=8080 />
-     <Connector port=8009 />
-     <Engine name="Catalina" defaultHost="localhost">
+	<Server>
+  	 <Service>
+  	   <Connector port=8080 />
+ 	    <Connector port=8009 />
+ 	    <Engine name="Catalina" defaultHost="localhost">
 
-<Host name="www.a.com"  appBase="a" unpackWARs="true" autoDeploy="true">
-	<Context path="" docBase="base"/>			//修改根路径为a/base
-	  <Context path="/test" docBase="/var/www/html/"/> 		//访问www.a.com:8080/test显示/var/www/html下的页面
-</Host>
+			<Host name="www.a.com"  appBase="a" unpackWARs="true" autoDeploy="true">
+				<Context path="" docBase="base"/>			//修改根路径为a/base
+				  <Context path="/test" docBase="/var/www/html/"/> 		//访问www.a.com:8080/test显示/var/www/html下的页面
+			</Host>
 
-配置Tomcat支持SSL加密网站
-1）创建加密用的私钥和证书文件
-keytool -genkeypair -alias tomcat -keyalg RSA -keystore /usr/local/tomcat/keystore
+三配置Tomcat支持SSL加密网站
+	创建加密用的私钥和证书文件
+	keytool -genkeypair -alias tomcat -keyalg RSA -keystore /usr/local/tomcat/keystore
 
-<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
-maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
-keystoreFile="/usr/local/tomcat/keystore" keystorePass="123456" clientAuth="false" sslProtocol="TLS" />
+	<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+	maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+	keystoreFile="/usr/local/tomcat/keystore" keystorePass="123456" clientAuth="false" sslProtocol="TLS" />
 
-日志   
-catalina.2019-05-23.log				//软件日志,起服务,关服务,错误日志  
-localhost_access_log.2019-05-23.txt	//访问日志
+四日志   
+	catalina.2019-05-23.log				软件日志,起服务,关服务,错误日志  
+	localhost_access_log.2019-05-23.txt	访问日志
 
 <Host name="www.a.com" appBase="a" unpackWARS="true" autoDeploy="true">
 <Context path="/test" docBase="/var/www/html/" />
@@ -37,48 +47,145 @@ suffix=".txt"			//日志扩展名,程序会自动在文件名和扩展名之间�
 pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 </Host>
 
+五开启apr运行模式
+	Tomcat可以使用Apache Portable Runtime来提供卓越的性能及可扩展性，更好地与本地服务器技术的集成。Apache Portable Runtime是一个高度可移植的库，位于Apache HTTP Server 2.x的核心。APR有许多用途，包括访问高级IO功能（如sendfile，epoll和OpenSSL），操作系统级功能（随机数生成，系统状态等）以及本地进程处理（共享内存，NT管道和Unix套接字）
+	这些功能不仅仅是一个后端集中的技术，还可以让Tomcat成为通用的网络服务器，可以实现与本地的其他Web技术更好的集成，并使Java成为一个完整的网络服务器平台
+	官方要求 ：
+		APR 1.2+ development headers (libapr1-dev package)
+		OpenSSL 1.0.2+ development headers (libssl-dev package)
+		JNI headers from Java compatible JDK 1.4+
+		GNU development environment (gcc, make)
+	1安装依赖包
+		  
+	2安装apr
+		下载地址:http://apr.apache.org/download.cgi
+
+		tar xf apr-1.6.5.tar.gz
+		cd apr-1.6.5/
+		./configure 
+		make && make install
+
+		tar xf apr-iconv-1.2.2.tar.gz
+		cd apr-iconv-1.2.2/
+		./configure   --with-apr=/usr/local/apr  --prefix=/usr/local/apr-iconv
+		make && make install
+
+		tar xf apr-util-1.6.1.tar.gz  
+		cd apr-util-1.6.1/
+		./configure --prefix=/usr/local/apr-util  --with-apr=/usr/local/apr   --with-apr-iconv=/usr/local/apr-iconv/bin/apriconv
+		make && make install
+
+	3安装tomcat-native
+		cd /usr/local/tomcat/bin/
+		tar xf tomcat-native.tar.gz
+		cd  /usr/local/tomcat/bin/tomcat-native-1.2.16-src/native
+		./configure --with-apr=/usr/local/apr  --with-java-home=/usr/local/java/jdk1.8
+		make && make install
+		注:--with-java-home为java的安装路径
+
+	4配置环境变量
+		echo -e 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/apr/lib\nexport LD_RUN_PATH=$LD_RUN_PATH:/usr/local/apr/lib' >> /etc/profile
+		source /etc/profile
+
+	5修改配置文件
+		vim /usr/local/tomcat/conf/server.xml
+ 
+<Executor name="tomcatThreadPool" 
+          namePrefix="catalina-exec-"
+          maxThreads="300" 
+          minSpareThreads="30"/>
+ 
+<Connector     executor="tomcatThreadPool" 
+               port="8080" 
+               protocol="org.apache.coyote.http11.Http11AprProtocol"
+               connectionTimeout="20000"
+               redirectPort="8443"
+               acceptCount="900"
+               disableUploadTimeout="true"
+               URIEncoding="UTF-8"
+               enableLookups="false"
+               compression="on"
+               compressionMinSize="1024"
+                />
+
+参考文档:
+	https://www.cnblogs.com/radio/p/9389505.html
+
+六启用线程池
+	<Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="600" minSpareThreads="50"/>
+	<Connector executor="tomcatThreadPool"
+               port="8080"
+               protocol="org.apache.coyote.http11.Http11AprProtocol"
+               connectionTimeout="20000"
+               redirectPort="8443"
+				maxHttpHeaderSize="8192"
+               maxPostSize="10485760"
+               acceptCount="1000"
+               acceptorThreadCount="2"
+               disableUploadTimeout="true"
+               URIEncoding="UTF-8"
+               maxConnections="10000"
+               enableLookups="false"
+               compression="on"
+               compressionMinSize="1024"
+     />
+
+		注:配置文件中已有定义,只需将原有的8080端口注释,再另外取消相应的注释即可
+		注:如果启用线程池,则连接器中部分相关设置会失效
+
+七连接器优化
+	<Connector port="8080"  
+
+         protocol="org.apache.coyote.http11.Http11AprProtocol"  
+
+         maxThreads="1000"  
+
+         minSpareThreads="100"  
+
+         acceptCount="1000" 
+
+         maxConnections="10000" 
+
+         connectionTimeout="20000"  
+
+         maxHttpHeaderSize="8192" 
+
+         tcpNoDelay="true" 
+
+         compression="on" 
+
+         compressionMinSize="2048" 
+
+         disableUploadTimeout="true" 
+
+         redirectPort="8443" 
+
+         enableLookups="false" 
+
+         URIEncoding="UTF-8" 
+	/> 
+
+八禁用AJP连接
+	当tomcat服务器不需要解析静态代码时,可以禁用AJP连接,提高服务器性能
+	<!--
+		<Connector port="8009" protocol="org.apache.coyote.ajp.AjpAprProtocol" redirectPort="8443" />
+	-->
+
+九JVM调优
+	vim /usr/local/tomcat/bin/catalina.sh
+		JAVA_OPTS="-Dfile.encoding=UTF-8-server –Xms512m -Xmx1024m -XX:NewSize=512m -XX:MaxNewSize=512m -XX:PermSize=256m-XX:MaxPermSize=256m -XX:NewRatio=2 -XX:MaxTenuringThreshold=50-XX:+DisableExplicitGC"
+
+
+
+tomcat优化参考文档:
+	https://blog.csdn.net/zs742946530/article/details/82346707
+	https://blog.csdn.net/jaryle/article/details/83616146
 
 
 
 
 
 
-
-
-
-CDN(content delivery network)内容分发网络
-
-yum -y install gcc readline-devel    
-yum -y install ncurses-devel     //安装readline-devel时ncurses-devel将会作为依赖包被安装
-yum -y install pcre-devel            
-yum -y install python-docutils         
-useradd -s /sbin/nologin varnish
-tar -xf varnish-5.2.1.tar.gz
-cd varnish-5.2.1
-./configure
-make && make install
-
-varnish-5.2.1]#cp  etc/example.vcl   /usr/local/etc/default.vcl
-3）修改代理配置文件
-vim  /usr/local/etc/default.vcl
-backend default {
-     .host = "192.168.2.100";
-     .port = "80";
- }
-4）启动服务
-varnishd  -f /usr/local/etc/default.vcl
-//varnishd命令的其他选项说明如下：
-//varnishd -s malloc,128M        定义varnish使用内存作为缓存，空间为128M
-//varnishd -s file,/var/lib/varnish_storage.bin,1G 定义varnish使用文件作为缓存
-步骤三：客户端测试
-
-1）客户端开启浏览器访问
-curl http://192.168.4.5
-
-varnishlog					//查看详细日志
-varnishncsa               //查看简单日志
-
-[root@proxy ~]# varnishadm  
-varnish> ban req.url ~ .*				//清空缓存数据，支持正则表达式
 
 

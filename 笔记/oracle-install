@@ -9,10 +9,10 @@
 	passwd oracle
 
 创建安装目录
-	mkdir -p /data/oracle/oraInventory
-	mkdir -p /data/oracle/product
-	chown -R oracle:oinstall /data
-	chmod -R 755 /data
+	mkdir -p /u01/app/oracle/oraInventory
+	mkdir -p /u01/app/oracle/product
+	chown -R oracle:oinstall /u01
+	chmod -R 755 /u01
 
 修改系统标识
 	echo redhat-7 > /etc/redhat-release
@@ -91,15 +91,15 @@
 		oracle  soft    nofile  1024
 		oracle  hard    nofile  65535
 		oracle  soft    stack   10240
-		oracle  hard    stack   10240
+		oracle  hard    stack   10240 - 32768
 
 配置环境变量
 	su - oracle
 	vim .bash_profile
-		export ORACLE_BASE=/data/oracle
+		export ORACLE_BASE=/u01/app/oracle
 		export ORACLE_HOME=$ORACLE_BASE/product
 		export PATH=$PATH:$ORACLE_HOME/bin
-		export ORACLE_SID=orcl
+		export ORACLE_SID=
 		export LANG=zh_CN.UTF-8
 
 		#图形界面安装时,需添加如下两行,否则安装界面乱码
@@ -124,6 +124,9 @@
 		fi
 	fi
 
+重启
+reboot
+
 解压安装包
 	su - oracle
 	unzip linux.x64_11gR2_database_1of2.zip 
@@ -136,10 +139,10 @@
 		oracle.install.option=INSTALL_DB_SWONLY
 		ORACLE_HOSTNAME=oracle-1
 		UNIX_GROUP_NAME=oinstall
-		INVENTORY_LOCATION=/data/oracle/oraInventory
+		INVENTORY_LOCATION=/u01/app/oracle/oraInventory
 		SELECTED_LANGUAGES=en,zh_CN
-		ORACLE_HOME=/data/oracle/product
-		ORACLE_BASE=/data/oracle
+		ORACLE_HOME=/u01/app/oracle/product
+		ORACLE_BASE=/u01/app/oracle
 		oracle.install.db.InstallEdition=EE
 		oracle.install.db.DBA_GROUP=dba
 		oracle.install.db.OPER_GROUP=oinstall
